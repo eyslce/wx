@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="base::head">
+</head>
+<body>
+    <div id="content" class="col-lg-10 col-sm-10">
+        <div class="center-block"  style=" margin-top: 300px;">
+            <form class="form-inline" id="delivery_search_form">
+                <div class="form-group">
+                    <label for="postid">快递单号：</label>
+                    <input type="text" class="form-control" id="postid" placeholder="快递单号">
+                </div>
+                <button type="submit" class="btn btn-primary">查询</button>
+            </form>
+            <div id="delivery_search_result">
+
+            </div>
+        </div>
+        </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //快递单号查询
+            $('#delivery_search_form').submit(function () {
+                var postid = $('#postid').val();
+                if (postid == '') {
+                    art.dialog({content: '请输入快递单号！'});
+                    return false;
+                }
+                $.getJSON('{:U("/Home/Index/search_delivery")}', {postid: postid}, function (data) {
+                    if (data == '') {
+                        $('#delivery_search_result').html('抱歉，没有查到相关数据！');
+                        return;
+                    }
+                    var html = '<ul>';
+                    $.each(data.data, function (i, j) {
+                        html += '<li><div>' + j.context + '</div><div>' + j.time + '</div></li>';
+                    });
+                    $('#delivery_search_result').html(html + '</ul>');
+                });
+                return false;
+            });
+        });
+    </script>
+</body>
+</html>

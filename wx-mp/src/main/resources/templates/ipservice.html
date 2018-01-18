@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<block name="content">
+    <div id="content" class="col-lg-10 col-sm-10">
+        <div>
+            <ul class="breadcrumb">
+                <li>
+                    <a href="#">首页</a>
+                </li>
+                <li>
+                    <a href="#">ip地址查询</a>
+                </li>
+            </ul>
+        </div>
+        <div class="center-block"  style=" margin-top: 300px;">
+            <form class="form-inline" id="ip_search_form">
+                <div class="form-group">
+                    <label for="ip">IP：</label>
+                    <input type="text" class="form-control" id="ip" placeholder="IP">
+                </div>
+                <button type="submit" class="btn btn-primary">查询</button>
+            </form>
+            <div id="ip_search_result" class="center-block">
+
+            </div>
+        </div>
+    </div>
+</block>
+<block name="script">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            //快递单号查询
+            $('#ip_search_form').submit(function () {
+                var ip = $('#ip').val();
+                if (ip == '') {
+                    art.dialog({content: '请输入IP！'});
+                    return false;
+                }
+                $.getJSON('{:U("/Home/Index/search_ip")}', {ip:ip}, function (data) {
+                    if (data.errNum !=0) {
+                        $('#iP_search_result').html(data.retMsg);
+                        return;
+                    }
+                    var result = data.retData;
+                    var html = '<ul><li>IP：'+result.ip+'</li><li>地址：'+result.country+' '+result.province+' '+result.city+' '+result.district+'</li><li>服务商：'+result.carrier+'</li></ul>';
+                    $('#ip_search_result').html(html);
+                });
+                return false;
+            });
+        });
+    </script>
+</block>
+</body>
+</html>
