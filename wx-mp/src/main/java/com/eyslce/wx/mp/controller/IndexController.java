@@ -1,7 +1,11 @@
 package com.eyslce.wx.mp.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.eyslce.wx.commons.util.Configuration;
 import com.eyslce.wx.commons.util.HttpClient;
+import com.eyslce.wx.mp.entity.DeliveryType;
+import com.eyslce.wx.mp.entity.DeliveryTypeAuto;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,19 +47,36 @@ public class IndexController {
     }
 
     /**
-     *
+     * 查询快递详情
      */
     @RequestMapping(value = "/delivery/search")
     @ResponseBody
-    public void deliverySearch(@RequestParam(name = "postid") String postid){
+    public String deliverySearch(@RequestParam(name = "postid") String postid){
         String deliveryTypeApi = configuration.getMp().getDeliveryTypeApi();
-        List<NameValuePair> params = new ArrayList<>();
-        params.add(new BasicNameValuePair("text",postid));
+        String deliveryApi = configuration.getMp().getDeliveryApi();
+        List<NameValuePair> typeParams = new ArrayList<>();
+        typeParams.add(new BasicNameValuePair("text",postid));
+        String result = "",type="";
+        int noCount=0;
         try {
-            String result = HttpClient.post(deliveryTypeApi,params);
+            String typeResult = HttpClient.post(deliveryTypeApi,typeParams);
+            DeliveryType deliveryType = JSON.parseObject(typeResult,DeliveryType.class);
+            if(null != deliveryType && !deliveryType.getAuto().isEmpty()){
+                for(DeliveryTypeAuto deliveryTypeAuto:deliveryType.getAuto()){
+                    if(noCount<deliveryTypeAuto.getNoCount()){
+                        noCount = deliveryTypeAuto.getNoCount();
+                        type = deliveryTypeAuto.getComCode();
+                    }
+                }
+                List<NameValuePair> params = new ArrayList<>();
+                params.add(new BasicNameValuePair("postid",postid));
+                params.add(new BasicNameValuePair("type",type));
+                result = HttpClient.post(deliveryApi,params);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return result;
     }
 
     /**

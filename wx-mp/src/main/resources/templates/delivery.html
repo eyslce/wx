@@ -27,7 +27,7 @@
                     art.dialog({content: '请输入快递单号！'});
                     return false;
                 }
-                $.getJSON('{:U("/Home/Index/search_delivery")}', {postid: postid}, function (data) {
+                $.getJSON('/delivery/search', {postid: postid}, function (data) {
                     if (data == '') {
                         $('#delivery_search_result').html('抱歉，没有查到相关数据！');
                         return;
