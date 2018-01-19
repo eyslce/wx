@@ -12,7 +12,15 @@ import java.util.List;
 
 public class HttpClient {
 
-    public String httpPost(String url, List<NameValuePair> params) throws Exception {
+    /**
+     * 构造一个post请求
+     *
+     * @param url
+     * @param params
+     * @return
+     * @throws Exception
+     */
+    public static String post(String url, List<NameValuePair> params) throws Exception {
         // 获取默认的client实例
         CloseableHttpClient client = HttpClients.createDefault();
         //创建httppost实例
