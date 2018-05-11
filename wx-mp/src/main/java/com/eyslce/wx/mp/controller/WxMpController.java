@@ -21,6 +21,13 @@ public class WxMpController {
     @Autowired
     private WxMpMessageRouter router;
 
+    /**
+     * @param signature
+     * @param timestamp
+     * @param nonce
+     * @param echostr
+     * @return
+     */
     @GetMapping(produces = "text/plain;charset=utf-8")
     public String authGet(
             @RequestParam(name = "signature", required = false) String signature,
@@ -81,8 +88,7 @@ public class WxMpController {
                 return "";
             }
 
-            out = outMessage
-                    .toEncryptedXml(this.wxService.getWxMpConfigStorage());
+            out = outMessage.toEncryptedXml(this.wxService.getWxMpConfigStorage());
         }
 
         this.logger.debug("\n组装回复信息：{}", out);

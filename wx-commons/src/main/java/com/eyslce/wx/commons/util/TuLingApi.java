@@ -9,12 +9,21 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
+
 @Component
 public class TuLingApi {
     @Autowired
-    private WxConfigurationProperties properties;
+    public WxConfigurationProperties properties;
 
     private Logger logger = LoggerFactory.getLogger(TuLingApi.class);
+
+    public static TuLingApi tuLingApi;
+
+    @PostConstruct
+    public void init() {
+        tuLingApi = this;
+    }
 
     /**
      * 请求图灵API
@@ -23,15 +32,15 @@ public class TuLingApi {
      * @param query
      * @return
      */
-    public TulingApiResult call(TuLingApiQuery query) {
+    public static TulingApiResult call(TuLingApiQuery query) {
         TulingApiResult tulingApiResult = new TulingApiResult();
         String params = JSON.toJSONString(query);
         try {
-            String res = HttpClient.post(properties.getTulingApiUrl(), params);
+            String res = HttpClient.post(tuLingApi.properties.getTulingApiUrl(), params);
             tulingApiResult = JSON.parseObject(res, TulingApiResult.class);
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("" + e.getMessage());
+            tuLingApi.logger.error("" + e.getMessage());
         }
         return tulingApiResult;
     }
@@ -42,7 +51,7 @@ public class TuLingApi {
      * @param perception
      * @return
      */
-    public TulingApiResult call(Perception perception) {
+    public static TulingApiResult call(Perception perception) {
         int reqType = 0;
         if (perception.getInputMedia() != null) {
             reqType = 2;
@@ -52,8 +61,8 @@ public class TuLingApi {
         TuLingApiQuery query = TuLingApiQuery.builder()
                 .perception(perception)
                 .userInfo(UserInfo.builder()
-                        .apiKey(properties.getTulingApiKey())
-                        .userId(properties.getTulingUserId())
+                        .apiKey(tuLingApi.properties.getTulingApiKey())
+                        .userId(tuLingApi.properties.getTulingUserId())
                         .build())
                 .reqType(reqType)
                 .build();
@@ -64,7 +73,7 @@ public class TuLingApi {
      * @param text
      * @return
      */
-    public TulingApiResult call(String text) {
+    public static TulingApiResult call(String text) {
         Perception perception = Perception.builder()
                 .inputText(InputText.builder()
                         .text(text)
@@ -78,7 +87,7 @@ public class TuLingApi {
      * @param inputMedia
      * @return
      */
-    public TulingApiResult call(InputMedia inputMedia) {
+    public static TulingApiResult call(InputMedia inputMedia) {
         Perception perception = Perception.builder()
                 .inputMedia(inputMedia)
                 .build();
@@ -90,7 +99,7 @@ public class TuLingApi {
      * @param inputImage
      * @return
      */
-    public TulingApiResult call(InputImage inputImage) {
+    public static TulingApiResult call(InputImage inputImage) {
         Perception perception = Perception.builder()
                 .inputImage(inputImage)
                 .build();
@@ -102,7 +111,7 @@ public class TuLingApi {
      * @param inputText
      * @return
      */
-    public TulingApiResult call(InputText inputText) {
+    public static TulingApiResult call(InputText inputText) {
         Perception perception = Perception.builder()
                 .inputText(inputText)
                 .build();

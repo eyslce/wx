@@ -1,5 +1,6 @@
 package com.eyslce.wx.mp.controller;
 
+import com.eyslce.wx.commons.util.Constant;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
 import me.chanjar.weixin.common.bean.menu.WxMenuButton;
@@ -36,16 +37,16 @@ public class MenuController {
     public String menuCreateSample() throws WxErrorException {
         WxMenu menu = new WxMenu();
         //一级菜单 --生活助手
-        WxMenuButton levelOneFirstBtn = new WxMenuButton();
-        levelOneFirstBtn.setName("生活小助手");
+        WxMenuButton firstMenu = new WxMenuButton();
+        firstMenu.setName(Constant.firstMenuName);
         //二级菜单
         WxMenuButton deliveryBtn = new WxMenuButton();
         deliveryBtn.setType(WxConsts.MenuButtonType.CLICK);
-        deliveryBtn.setName("查询快递");
-        deliveryBtn.setKey("");
+        deliveryBtn.setName(Constant.Menu.Delivery.getName());
+        deliveryBtn.setKey(Constant.Menu.Delivery.getKey());
 
-        levelOneFirstBtn.getSubButtons().add(deliveryBtn);
-        menu.getButtons().add(levelOneFirstBtn);
+        firstMenu.getSubButtons().add(deliveryBtn);
+        menu.getButtons().add(firstMenu);
 
         return this.wxService.getMenuService().menuCreate(menu);
     }
