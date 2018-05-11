@@ -1,6 +1,6 @@
 package com.eyslce.wx.mp;
 
-import com.eyslce.wx.commons.util.Configuration;
+import com.eyslce.wx.commons.util.WxConfigurationProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -8,7 +8,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.web.support.SpringBootServletInitializer;
 
 @SpringBootApplication
-@EnableConfigurationProperties(value = Configuration.class)
+@EnableConfigurationProperties(value = WxConfigurationProperties.class)
 public class WxMpApplication extends SpringBootServletInitializer{
 
     @Override

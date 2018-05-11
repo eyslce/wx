@@ -1,7 +1,7 @@
 package com.eyslce.wx.mp.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.eyslce.wx.commons.util.Configuration;
+import com.eyslce.wx.commons.util.WxConfigurationProperties;
 import com.eyslce.wx.commons.util.HttpClient;
 import com.eyslce.wx.mp.entity.DeliveryType;
 import com.eyslce.wx.mp.entity.DeliveryTypeAuto;
@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class IndexController {
     @Autowired
-    Configuration configuration;
+    WxConfigurationProperties wxConfigurationProperties;
 
     /**
      * 地图
@@ -51,8 +51,8 @@ public class IndexController {
     @RequestMapping(value = "/delivery/search")
     @ResponseBody
     public String deliverySearch(@RequestParam(name = "postid") String postid){
-        String deliveryTypeApi = configuration.getMp().getDeliveryTypeApi();
-        String deliveryApi = configuration.getMp().getDeliveryApi();
+        String deliveryTypeApi = wxConfigurationProperties.getMp().getDeliveryTypeApi();
+        String deliveryApi = wxConfigurationProperties.getMp().getDeliveryApi();
         List<NameValuePair> typeParams = new ArrayList<>();
         typeParams.add(new BasicNameValuePair("text",postid));
         String result = "",type="";
