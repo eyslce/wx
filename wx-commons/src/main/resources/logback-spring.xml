@@ -1,5 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <include resource="org/springframework/boot/logging/logback/base.xml"/>
-    <logger name="org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod" level="TRACE"/>
+    <property name="LOG_BASE" value="${LOG_PATH}"/>
+    <property name="patternNologger"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level]: [%thread] - %msg%n"/>
+    <property name="defaultPattern"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level]: [%thread] - %logger{36} - %msg%n"/>
+    <property name="ofoPattern"
+              value="%msg%n"/>
+
+    <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_BASE}/info.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${LOG_BASE}/info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <!-- keep 180 days' worth of history capped at 10GB total size -->
+            <maxHistory>180</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>${patternNologger}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_BASE}/error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${LOG_BASE}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <!-- keep 180 days' worth of history capped at 10GB total size -->
+            <maxHistory>180</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>${patternNologger}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_BASE}/warn.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${LOG_BASE}/warn.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <!-- keep 180 days' worth of history capped at 10GB total size -->
+            <maxHistory>180</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>${patternNologger}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_BASE}/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>${LOG_BASE}/debug.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+
+            <!-- keep 180 days' worth of history capped at 10GB total size -->
+            <maxHistory>180</maxHistory>
+            <maxFileSize>100MB</maxFileSize>
+            <totalSizeCap>10GB</totalSizeCap>
+
+        </rollingPolicy>
+        <encoder>
+            <pattern>${patternNologger}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="warn" level="WARN" additivity="false">
+        <appender-ref ref="warn"/>
+    </logger>
+
+    <logger name="debug" level="DEBUG" additivity="false">
+        <appender-ref ref="debug"/>
+    </logger>
+
+    <logger name="info" level="INFO" additivity="false">
+        <appender-ref ref="info"/>
+    </logger>
+
+    <logger name="error" level="ERROR" additivity="false">
+        <appender-ref ref="error"/>
+    </logger>
 </configuration>
