@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:include="base::head">
-</head>
+<head th:include="base::head"></head>
 <body>
 <div id="content" class="weui-cells weui-cells_form">
-    <form class="form-inline" id="delivery_search_form">
+    <form id="delivery_search_form">
         <div class="weui-cells__title">快递单号：</div>
         <div class="weui-cells">
             <div class="weui-cell">
@@ -20,9 +19,7 @@
     </div>
 
 </div>
-<div th:include="base::foot">
-
-</div>
+<div th:include="base::foot"></div>
 <script type="text/javascript">
     $(document).ready(function () {
         //快递单号查询

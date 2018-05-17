@@ -35,4 +35,18 @@ public class Constant {
         }
     }
 
+    public enum Lang {
+        Eng("eng"),
+        CHI_SIM("chi_sim");
+        private String index;
+
+        Lang(String index) {
+            this.index = index;
+        }
+
+        public String getIndex() {
+            return index;
+        }
+    }
+
 }
