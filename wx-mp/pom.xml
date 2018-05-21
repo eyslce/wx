@@ -16,6 +16,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
         <!--要打成war包执行，需要该依赖 servlet3.0以上无需该依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
