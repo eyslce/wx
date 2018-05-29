@@ -28,6 +28,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .formLogin().loginPage("/login").defaultSuccessUrl("/user")
                 .and()
                 .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+        //Spring Security 4.0之后，引入了CSRF，默认状态为开启
+        //正确的做法是在表单中增加token
+        //<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+        http.csrf().disable();
     }
 
     /**
