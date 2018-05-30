@@ -3,6 +3,7 @@ package com.eyslce.wx.mp.test;
 
 import com.alibaba.fastjson.JSON;
 import com.eyslce.wx.commons.result.TulingApiResult;
+import com.eyslce.wx.commons.util.FileOperation;
 import com.eyslce.wx.commons.util.TuLingApi;
 import com.eyslce.wx.mp.WxMpApplication;
 import org.junit.Test;
@@ -22,5 +23,10 @@ public class TuLingApiTest {
         TulingApiResult result = TuLingApi.call("889362541469824436");
         String p = JSON.toJSONString(result);
         System.out.println(p);
+    }
+
+    @Test
+    public void test() {
+        FileOperation.downBingImg();
     }
 }

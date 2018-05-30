@@ -1,20 +1,21 @@
 package com.eyslce.wx.mp.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.eyslce.wx.commons.util.WxConfigurationProperties;
+import com.eyslce.wx.commons.util.FileOperation;
 import com.eyslce.wx.commons.util.HttpClient;
+import com.eyslce.wx.commons.util.WxConfigurationProperties;
 import com.eyslce.wx.mp.entity.DeliveryType;
 import com.eyslce.wx.mp.entity.DeliveryTypeAuto;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +23,13 @@ import java.util.List;
 public class IndexController {
     @Autowired
     WxConfigurationProperties wxConfigurationProperties;
+
+    private final ResourceLoader resourceLoader;
+
+    @Autowired
+    public IndexController(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 
     /**
      * 地图
@@ -87,6 +95,16 @@ public class IndexController {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("weather");
         return  modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<?> getFile(@PathVariable String filename) {
+        try {
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + Paths.get(FileOperation.UPLOAD_DIR, filename).toString()));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
 }

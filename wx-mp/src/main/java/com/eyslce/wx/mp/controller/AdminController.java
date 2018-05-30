@@ -13,6 +13,11 @@ public class AdminController {
         return "admin/index";
     }
 
+    @GetMapping(value = {"/index-x"})
+    public String indexx() {
+        return "admin/index-x";
+    }
+
     @GetMapping("log")
     public String log() {
         return "admin/log";

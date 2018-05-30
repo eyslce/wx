@@ -2,13 +2,17 @@ package com.eyslce.wx.commons.util;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+
 import java.util.List;
 
 public class HttpClient {
@@ -68,6 +72,33 @@ public class HttpClient {
 
         }  finally {
             // 关闭连接，释放资源
+            try {
+                client.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    /**
+     * 发送get请求
+     *
+     * @param url
+     * @return
+     * @throws Exception
+     */
+    public static String get(String url) throws Exception {
+        // 获取默认的client实例
+        CloseableHttpClient client = HttpClientBuilder.create().build();
+        HttpGet httpGet = new HttpGet(url);
+        httpGet.setConfig(RequestConfig.custom()
+                .setConnectTimeout(1000)
+                .setMaxRedirects(20)
+                .build());
+        try {
+            CloseableHttpResponse resp = client.execute(httpGet);
+            return getStringReponse(resp);
+        } finally {
             try {
                 client.close();
             } catch (Exception e) {
