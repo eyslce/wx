@@ -1,6 +1,10 @@
 package com.eyslce.wx.commons.util;
 
 public class Constant {
+    public static final String SYSTEM_NAME = "wx";
+    public static final String SYSTEM_VERSION = "1.0.0";
+    public static final String SYSTEM_UPDATE_TIME = "2018-06-01";
+
     public final static String firstMenuName = "生活助手";
     public final static String secondMenuName = "";
     public final static String thirdMenuName = "";
