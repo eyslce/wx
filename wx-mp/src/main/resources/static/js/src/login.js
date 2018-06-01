@@ -36,7 +36,7 @@ layui.use(['form', 'layer'], function () {
                         localStorage.clear('password');
                     }
                     localStorage.setItem('username', result.data?result.data:"管理员");
-                    window.location.href = "/views/index.html";
+                    window.location.href = "/admin/index.html";
                 }else{
                     layer.msg(result.msg || "登录失败");
                 }
@@ -54,5 +54,3 @@ if (localStorage.getItem('remember')) {
     $("#username").val(localStorage.getItem('remember'));
     $("#password").val(localStorage.getItem('password'))
 }
-//百度统计
-var _hmt=_hmt||[];(function(){var hm=document.createElement("script");hm.src="https://hm.baidu.com/hm.js?f07686635800b1dc0587d91cd81bf3b0";var s=document.getElementsByTagName("script")[0];s.parentNode.insertBefore(hm,s)})();
