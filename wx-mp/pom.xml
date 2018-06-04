@@ -30,10 +30,6 @@
             <artifactId>druid</artifactId>
             <version>1.0.28</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
         <!--要打成war包执行，需要该依赖 servlet3.0以上无需该依赖-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -44,12 +40,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency>-->
-        <!--
-        <dependency>
-            <groupId>org.webjars</groupId>
-            <artifactId>jquery</artifactId>
-            <version>3.1.1</version>
         </dependency>-->
         <dependency>
             <groupId>com.eyslce.wx</groupId>
