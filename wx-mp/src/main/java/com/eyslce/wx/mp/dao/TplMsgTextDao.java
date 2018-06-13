@@ -18,7 +18,7 @@
  */
 package com.eyslce.wx.mp.dao;
 
-import com.wxmp.wxcms.domain.TplMsgText;
+import com.eyslce.wx.mp.domain.TplMsgText;
 
 import java.util.List;
 

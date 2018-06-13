@@ -18,14 +18,12 @@
  */
 package com.eyslce.wx.mp.dao;
 
-import com.wxmp.wxcms.domain.SysUser;
+import com.eyslce.wx.mp.domain.SysUser;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
-/**
- *
- * @author hermit
- * @version 2.0
- * @date 2018-04-17 10:54:58
- */
+@Repository
+@Mapper
 public interface SysUserDao {
 
 	/**

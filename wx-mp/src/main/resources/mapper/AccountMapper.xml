@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.eyslce.wx.mp.dao.AccountDao">
+
+
+    <select id="listForPage" parameterType="com.eyslce.wx.mp.domain.Account"
+            resultType="com.eyslce.wx.mp.domain.Account">
+        SELECT * FROM wxcms_account ORDER BY ID DESC
+    </select>
+
+    <select id="getById" parameterType="java.lang.Long" resultType="com.eyslce.wx.mp.domain.Account">
+        SELECT * FROM wxcms_account WHERE ID = #{id}
+    </select>
+
+    <select id="getByAccount" parameterType="java.lang.String" resultType="com.eyslce.wx.mp.domain.Account">
+        SELECT * FROM wxcms_account WHERE account = #{account} ORDER BY ID DESC limit 1
+    </select>
+
+    <select id="getSingleAccount" resultType="com.eyslce.wx.mp.domain.Account">
+        SELECT * FROM wxcms_account ORDER BY ID DESC limit 1
+    </select>
+
+    <insert id="add" parameterType="com.eyslce.wx.mp.domain.Account" flushCache="true">
+        INSERT INTO wxcms_account ( NAME,ACCOUNT,APPID,APPSECRET,URL,TOKEN,MSG_COUNT,ID,CREATE_TIME ) VALUES (
+        #{name},#{account},#{appid},#{appsecret},#{url},#{token},#{msgcount},#{id},#{createtime} )
+    </insert>
+
+    <update id="update" parameterType="com.eyslce.wx.mp.domain.Account" flushCache="true">
+        UPDATE wxcms_account SET NAME = #{name},ACCOUNT = #{account},APPID = #{appid},APPSECRET = #{appsecret},URL =
+        #{url},TOKEN = #{token},MSG_COUNT = #{msgcount},CREATE_TIME = #{createtime} WHERE ID = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.eyslce.wx.mp.domain.Account">
+		DELETE FROM wxcms_account WHERE ID = #{id}
+	</delete>
+
+</mapper>

@@ -1,5 +1,3 @@
-//loadLayout();
-// template.defaults.rules[1].test = /<%(#?)((?:==|=#|[=-])?)[ \t]*([\w\W]*?)[ \t]*(-?)%>/;
 layui.use(['element', 'layer', 'upload'], function () {
 
 
@@ -45,7 +43,7 @@ layui.use(['element', 'layer', 'upload'], function () {
                     layer.msg('两次密码不一致');
                 } else {
                     $.ajax({
-                        url: '/user/updatepwd',
+                        url: '/updatePwd',
                         data: {
                             pwd: nowpassword,
                             newpwd: repassword
@@ -55,7 +53,7 @@ layui.use(['element', 'layer', 'upload'], function () {
                                 layer.msg('修改密码成功3s后自动跳转到登录页');
                                 localStorage.clear('password');
                                 setTimeout(function () {
-                                    window.location.href = '/views/login.html';
+                                    window.location.href = '/login.html';
                                 }, 3000)
 
                             } else {
@@ -72,7 +70,7 @@ layui.use(['element', 'layer', 'upload'], function () {
                 $('#nowpassword').val('');
                 $('#password').val('');
                 $('#repassword').val('');
-            },
+            }
         })
     });
 
@@ -128,7 +126,7 @@ function openaddCount() {
             $('#nowpassword').val('');
             $('#password').val('');
             $('#repassword').val('');
-        },
+        }
     })
 }
 
@@ -140,11 +138,11 @@ function changeCount(id) {
 // 退出
 $("#exit").on("click", function () {
     $.ajax({
-        url: '/user/logout',
+        url: '/logout',
         dataType: "json",
         success: function (result) {
             if (result.success) {
-                window.location.href = "/views/login.html";
+                window.location.href = "/login.html";
             } else {
                 layer.msg("退出失败");
             }

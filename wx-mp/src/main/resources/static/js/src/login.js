@@ -19,7 +19,7 @@ layui.use(['form', 'layer'], function () {
             return;
         }
         $.ajax({
-            url: '/user/login',
+            url: '/login',
             type: 'POST',
             dataType: 'json',
             data: {

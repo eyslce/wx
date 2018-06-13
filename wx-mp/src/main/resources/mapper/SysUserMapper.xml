@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.eyslce.wx.mp.dao.SysUserDao">
+    <!--根据用户名密码查询-->
+    <select id="getSysUser" parameterType="com.eyslce.wx.mp.domain.SysUser"
+            resultType="com.eyslce.wx.mp.domain.SysUser">
+        SELECT * FROM sys_user t
+        where t.account = #{account}
+        and t.pwd = #{pwd}
+    </select>
+
+    <!--根据主键id查询用户-->
+    <select id="getSysUserById" parameterType="java.lang.String"
+            resultType="com.eyslce.wx.mp.domain.SysUser">
+        SELECT * FROM sys_user t
+        where t.id = #{userId}
+    </select>
+
+
+    <!--修改登录密码-->
+    <update id="updateLoginPwd" parameterType="com.eyslce.wx.mp.domain.SysUser">
+		UPDATE sys_user
+		SET pwd = #{newpwd},
+		    update_time = #{updateTime} 
+		WHERE id = #{id} 
+		AND pwd = pwd
+	</update>
+</mapper>

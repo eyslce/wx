@@ -18,9 +18,9 @@
  */
 package com.eyslce.wx.mp.dao;
 
-import com.wxmp.wxcms.domain.MsgBase;
-import com.wxmp.wxcms.domain.MsgNews;
-import com.wxmp.wxcms.domain.MsgText;
+import com.eyslce.wx.mp.domain.MsgBase;
+import com.eyslce.wx.mp.domain.MsgNews;
+import com.eyslce.wx.mp.domain.MsgText;
 
 import java.util.List;
 

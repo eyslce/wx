@@ -82,7 +82,7 @@ public class DruidConfig {
         try {
             //属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：
             // 监控统计用的filter:stat;日志用的filter:log4j;防御sql注入的filter:wall
-            dataSource.setFilters("stat,wall");
+            dataSource.setFilters("stat");
         } catch (SQLException e) {
             e.printStackTrace();
         }
