@@ -19,21 +19,22 @@
         var layer = layui.layer;
         var table = layui.table;
         var table_header = [{type: 'checkbox'},
-            {type: 'numbers', title: '序号', width: 50},
-            {field: 'inputcode', title: '关键词', width: 150, align: 'center'},
-            {field: 'title', title: '标题', width: 150, align: 'center'},
-            {field: 'content', title: '消息描述', align: 'center'},
+            {type: 'numbers', title: '序号',width:50},
+            {field: 'tplId', title: '模板ID', width: 300, align: 'center',},
+            {field: 'title', title: '模板标题', width: 100, align: 'center',},
+            {field: 'wxTpl', title: '微信模板', align: 'center',},
+            {field: 'content', title: '模板内容', align: 'center',},
             {
                 field: 'lock', title: '操作', width: 150, align: 'center', templet: function (d) {
                 return '<a class="font-primary2" lay-event="edit" href="javascript:;">修改</a>' +
-                    '<a class="font-primary" lay-event="mass" href="javascript:;">群发</a>';
+                    '<a class="font-primary" lay-event="mass" href="javascript:;">发送</a>';
             }, unresize: true, align: 'center'
             }];
 
         var tableObj = table.render({
             id: 'list_table',
             elem: '#list_table',
-            url: '/msgtext/list',
+            url: '/tplmsgtext/list',
             align: "center",
             cols: [
                 table_header
@@ -49,7 +50,7 @@
             showDialog({
                 title: '添加'
                 , template: 'add'
-                , saveUrl: '/msgtext/updateText'
+                , saveUrl: '/tplmsgtext/updateText'
                 , tableObj: tableObj
             })
         });
@@ -67,7 +68,7 @@
             }
             showConfirm("确认删除？", function () {
                 $.ajax({
-                    url: '/msgtext/deleteById',
+                    url: '/tplmsgtext/deleteById',
                     data: {"baseId": arr.join(",")},
                     success: function (result) {
                         if (result.success) {
@@ -91,34 +92,31 @@
                 showDialog({
                     title: '修改',
                     template: 'edit',
-                    saveUrl: '/msgtext/updateText',
+                    saveUrl: '/tplmsgtext/updateText',
                     tableObj: tableObj,
-                    htmlData: data
+                    htmlData: data,
                 })
             } else if (layEvent === 'mass') {
                 showDialog({
-                    title: '群发'
+                    title: '发送'
                     , template: 'mass'
                     , height: 600
-                    , yes: function (index) {
+                    , yes:function (index) {
                         var checkStatus = table.checkStatus('fans'); //test即为基础参数id对应的值
-                        var cdata = checkStatus.data;
-                        if (cdata.length < 2) {
-                            layer.msg("至少选择2个粉丝");
-                            return false;
-                        }
-                        var fans = [];
-                        for (var i = 0; i < cdata.length; i++) {
+                        var cdata=checkStatus.data;
+                        var fans=[];
+                        for(var i=0;i<cdata.length;i++){
                             fans.push(cdata[i].openId);
                         }
                         $.ajax({
-                            url: '/wxapi/massSendTextByOpenIds',
+                            url: '/wxapi/sendTemplateMessage',
                             data: {
-                                textId: data.id,
+                                tplId:data.tplId,
+                                content:data.content,
                                 openIds: fans.join(",")
                             },
                             success: function (result) {
-                                if (result == "1") {
+                                if ( result.success == true) {
                                     layer.msg("群发成功");
                                     reloadTable(tableObj);
                                     layer.close(index);
@@ -131,6 +129,7 @@
                 });
             }
         });
+
 
 
     });
