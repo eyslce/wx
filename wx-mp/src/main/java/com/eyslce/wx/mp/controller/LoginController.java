@@ -1,10 +1,14 @@
 package com.eyslce.wx.mp.controller;
 
 import com.eyslce.wx.commons.result.HttpResult;
+import com.eyslce.wx.mp.controller.admin.BaseController;
 import com.eyslce.wx.mp.domain.SysUser;
 import com.eyslce.wx.mp.service.IUserService;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+/**
+ * 登录验证、密码修改
+ */
 @Controller
-public class LoginController {
+public class LoginController extends BaseController {
+
+    Logger logger = LoggerFactory.getLogger(LoginController.class);
 
     @Autowired
     private HttpSession session;
@@ -27,32 +36,44 @@ public class LoginController {
         return "admin/login";
     }
 
+    @Value("${google.recaptcha.url}")
+    private String googleVerifyURL;
+
+    @Value("${google.recaptcha.secretkey}")
+    private String googleSecretKey;
+
     @PostMapping("/login")
     @ResponseBody
     public HttpResult login(SysUser user) {
+//        List<NameValuePair> params = new ArrayList<>();
+//        params.add(new BasicNameValuePair("secret ", googleSecretKey));
+//        params.add(new BasicNameValuePair("response ", user.getGoogleCode()));
+//        params.add(new BasicNameValuePair("remoteip", request.getRemoteAddr()));
+//        try {
+//            String result = HttpClient.post(googleVerifyURL, params);
+//            JSONObject jsonObject = JSON.parseObject(result);
+//            boolean success = jsonObject.getBoolean("success");
+//            if (!success) {
+//                return this.error("验证失败");
+//            }
+//        } catch (Exception e) {
+//            logger.error("verify code error", e);
+//            return this.error("验证出错");
+//        }
         user.setPwd(DigestUtils.md5Hex(user.getPwd()));
         SysUser sysUser = userService.getSysUser(user);
         if (null == sysUser) {
-            return HttpResult.builder()
-                    .msg("用户名或者密码错误")
-                    .success(false)
-                    .build();
+            return this.error("用户名或者密码错误");
         }
         session.setAttribute("user", user);
-        return HttpResult.builder()
-                .msg("登录成功")
-                .success(true)
-                .build();
+        return this.success("登录成功");
     }
 
     @RequestMapping("/logout")
     @ResponseBody
     public HttpResult logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return HttpResult.builder()
-                .success(true)
-                .msg("操作成功")
-                .build();
+        return this.success("登出成功");
     }
 
     @PostMapping("/updatePwd")
@@ -60,18 +81,12 @@ public class LoginController {
     public HttpResult updatePwd(HttpServletRequest request, SysUser sysUser) {
         SysUser user = (SysUser) session.getAttribute("user");
         if (!user.getPwd().equals(DigestUtils.md5Hex(sysUser.getPwd()))) {
-            return HttpResult.builder()
-                    .success(false)
-                    .msg("密码错误")
-                    .build();
+            return this.error("密码错误");
         }
         sysUser.setNewpwd(DigestUtils.md5Hex(sysUser.getNewpwd()));
         userService.updateLoginPwd(sysUser);
         request.getSession().invalidate();
-        return HttpResult.builder()
-                .msg("更新成功")
-                .success(true)
-                .build();
+        return this.success("更新成功");
     }
 
 }

@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录页</title>
+    <title>WeChat管理系统</title>
     <link rel="stylesheet" href="/js/plugin/layui/css/layui.css">
     <link rel="stylesheet" href="/css/login.css">
 </head>
 <body>
 <div class="fsh-login">
     <div class="content">
-        <h3 class="login-title">wx管理系统</h3>
+        <h3 class="login-title">WeChat MS</h3>
         <div class="layui-form layui-form-pane" id="login">
             <div class="layui-form-item">
                 <label class="layui-form-label"><img src="/images/common/login-user.png"></label>
@@ -25,6 +25,7 @@
                            lay-verify="required" placeholder="请输入您的密码" class="layui-input ">
                 </div>
             </div>
+            <div class="g-recaptcha" data-sitekey="6LeWxV4UAAAAABbO5j1vRspA7OQB0e3zVr-Gi7u6"></div>
             <div class="layui-form-item  layui-form-icon">
                 <input type="checkbox" name="remember" title="记住密码" lay-skin="primary" id="remember">
             </div>
@@ -35,6 +36,7 @@
     </div>
 </div>
 </body>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 <script src="/js/plugin/jquery-2.2.4.min.js"></script>
 <script src="/js/plugin/layui/src/layui.js"></script>
 <script src="/js/src/login.js"></script>

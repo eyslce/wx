@@ -1,4 +1,4 @@
-package com.eyslce.wx.mp.controller;
+package com.eyslce.wx.mp.controller.admin;
 
 import com.eyslce.wx.commons.result.HttpResult;
 import com.eyslce.wx.commons.util.Constant;
@@ -17,7 +17,7 @@ import java.util.Properties;
 
 @Controller
 @RequestMapping("admin")
-public class AdminController {
+public class AdminController extends BaseController {
 
     @Autowired
     private ISysConfigService sysConfigService;
@@ -90,10 +90,6 @@ public class AdminController {
                 .put("systemName", Constant.SYSTEM_NAME)
                 .put("systemUpdateTime", Constant.SYSTEM_UPDATE_TIME)
                 .build();
-        return HttpResult.<Map>builder()
-                .success(true)
-                .msg("操作成功")
-                .data(propsMap)
-                .build();
+        return this.success(propsMap, "操作成功");
     }
 }

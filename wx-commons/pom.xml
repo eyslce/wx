@@ -36,9 +36,16 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.40</version>
         </dependency>
+        <!--微信公众号|订阅号 -->
         <dependency>
             <groupId>com.github.binarywang</groupId>
             <artifactId>weixin-java-mp</artifactId>
+            <version>2.9.0</version>
+        </dependency>
+        <!--微信支付 -->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-pay</artifactId>
             <version>2.9.0</version>
         </dependency>
     </dependencies>

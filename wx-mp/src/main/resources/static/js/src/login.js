@@ -10,6 +10,7 @@ layui.use(['form', 'layer'], function () {
     $('#fshLogin').click(function () {
         var username = $.trim($("#username").val());
         var password = $.trim($("#password").val());
+        var google_response_code = grecaptcha.getResponse();
         if(username==""){
             layer.msg('请输入账号');
             return;
@@ -24,7 +25,8 @@ layui.use(['form', 'layer'], function () {
             dataType: 'json',
             data: {
                 account: username,
-                pwd: password
+                pwd: password,
+                googleCode: google_response_code
             },
             success: function (result) {
                 if (result.success) {

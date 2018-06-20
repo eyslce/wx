@@ -31,4 +31,6 @@ public class SysUser  {
 	
 	//新登录密码
 	private String newpwd;
+
+	private String googleCode;
 }
