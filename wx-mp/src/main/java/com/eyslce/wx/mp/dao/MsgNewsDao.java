@@ -2,10 +2,13 @@
 package com.eyslce.wx.mp.dao;
 
 import com.eyslce.wx.mp.domain.MsgNews;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
+@Mapper
 public interface MsgNewsDao {
 
 	public MsgNews getById(String id);

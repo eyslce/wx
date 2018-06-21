@@ -2,10 +2,13 @@
 package com.eyslce.wx.mp.dao;
 
 import com.eyslce.wx.mp.domain.AccountMenuGroup;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
+@Mapper
 public interface AccountMenuGroupDao {
 
 	public AccountMenuGroup getById(String id);

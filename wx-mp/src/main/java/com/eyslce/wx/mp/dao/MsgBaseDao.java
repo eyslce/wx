@@ -21,16 +21,13 @@ package com.eyslce.wx.mp.dao;
 import com.eyslce.wx.mp.domain.MsgBase;
 import com.eyslce.wx.mp.domain.MsgNews;
 import com.eyslce.wx.mp.domain.MsgText;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-/**
- *
- * @author hermit
- * @version 2.0
- * @date 2018-04-17 10:54:58
- */
-
+@Repository
+@Mapper
 public interface MsgBaseDao {
 
 	public MsgBase getById(String id);

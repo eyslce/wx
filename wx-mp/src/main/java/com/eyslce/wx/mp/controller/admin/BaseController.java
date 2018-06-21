@@ -1,18 +1,34 @@
 package com.eyslce.wx.mp.controller.admin;
 
+import com.alibaba.fastjson.JSON;
 import com.eyslce.wx.commons.result.HttpResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
 
+@ControllerAdvice
+@EnableWebMvc
 public class BaseController {
+
+    Logger logger = LoggerFactory.getLogger(BaseController.class);
 
     @Autowired
     protected HttpServletRequest request;
 
     @Autowired
-    protected HttpServletResponse response;
+    private ThymeleafViewResolver thymeleafViewResolver;
 
     /**
      * 成功返回，不带data
@@ -70,5 +86,35 @@ public class BaseController {
                 .success(true)
                 .data(data)
                 .build();
+    }
+
+    @ExceptionHandler(Throwable.class)
+    public void handleException(Throwable e, HttpServletRequest request, HttpServletResponse response) {
+        logger.error(request.getRequestURI(), e);
+        if (isAjaxRequest(request)) {
+            HttpResult httpResult = error("程序出现异常");
+            response.setContentType("application/json");
+            response.setCharacterEncoding("utf-8");
+            try {
+                JSON.writeJSONString(response.getWriter(), httpResult);
+            } catch (IOException e1) {
+                logger.error("exception json error", e);
+            }
+        } else {
+            try {
+                Map<String, Object> map = new HashMap<>();
+                map.put("timestamp", new Date());
+                map.put("message", "程序出现异常");
+                thymeleafViewResolver.resolveViewName("admin/error", Locale.CHINA).render(map, request, response);
+            } catch (Exception e1) {
+                logger.error("exception view error", e1);
+            }
+        }
+    }
+
+    protected boolean isAjaxRequest(HttpServletRequest request) {
+        boolean isAjax = request.getHeader("x-requested-with") != null &&
+                request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest");
+        return isAjax;
     }
 }

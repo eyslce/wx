@@ -2,38 +2,38 @@
 package com.eyslce.wx.mp.dao;
 
 import com.eyslce.wx.mp.domain.AccountFans;
+import com.eyslce.wx.mp.query.FansQuery;
+import org.apache.ibatis.annotations.Mapper;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
+@Repository
+@Mapper
 public interface AccountFansDao {
 
-	public AccountFans getById(String id);
+	AccountFans getById(String id);
 
-	public AccountFans getByOpenId(String openId);
+	AccountFans getByOpenId(String openId);
+
+	List<AccountFans> list(AccountFans searchEntity);
+
+	Integer getTotalItemsCount(AccountFans searchEntity);
 	
-	public List<AccountFans> list(AccountFans searchEntity);
+	List<AccountFans> getFansListByPage(FansQuery query);
 
-	public Integer getTotalItemsCount(AccountFans searchEntity);
+	AccountFans getLastOpenId();
 	
-	public List<AccountFans> getFansListByPage(AccountFans searchEntity);
-
-	public AccountFans getLastOpenId();
+	void add(AccountFans entity);
 	
-	public void add(AccountFans entity);
-	
-	public void addList(List<AccountFans> list);
+	void addList(List<AccountFans> list);
 
-	public void update(AccountFans entity);
+	void update(AccountFans entity);
 
-	public void delete(AccountFans entity);
+	void delete(AccountFans entity);
 
-	public void deleteByOpenId(String openId);
+	void deleteByOpenId(String openId);
 
-	/**
-	 * 分页查询粉丝列表
-	 * @param searchEntity
-	 * @return
-	 */
-	public List<AccountFans> getAccountFansList(AccountFans searchEntity);
+
+	List<AccountFans> getAccountFansList(AccountFans searchEntity);
 }
