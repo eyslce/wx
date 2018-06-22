@@ -11,18 +11,18 @@ import java.util.List;
 @Mapper
 public interface AccountDao {
 
-	public Account getById(Long id);
-	
-	public Account getByAccount(String account);
-	
-	public Account getSingleAccount();
+	Account getById(Long id);
 
-	public List<Account> listForPage(Account searchEntity);
+	Account getByAccount(String account);
 
-	public void add(Account entity);
+	Account getSingleAccount();
 
-	public void update(Account entity);
+	List<Account> listForPage(Account searchEntity);
 
-	public void delete(Account entity);
+	void add(Account entity);
+
+	void update(Account entity);
+
+	void delete(Account entity);
 
 }

@@ -67,12 +67,12 @@
         //监听提交
         form.on('submit(add_account)', function (data) {
             $.ajax({
-                url: '/wxcms/getUrl',
+                url: '/admin/account/getUrl',
                 data: data.field,
                 success: function (result) {
                     if (result.success) {
-                        getCountStatus(result.data.id)
-                        jump("/system/url/url");
+                        getCountStatus(result.data.id);
+                        jump("/admin/account/url");
                         layer.msg("保存成功");
                     } else {
                         layer.msg("保存失败");
