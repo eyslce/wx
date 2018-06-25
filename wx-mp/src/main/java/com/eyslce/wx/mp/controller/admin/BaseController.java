@@ -2,8 +2,10 @@ package com.eyslce.wx.mp.controller.admin;
 
 import com.alibaba.fastjson.JSON;
 import com.eyslce.wx.commons.result.HttpResult;
+import com.eyslce.wx.commons.result.Page;
 import com.eyslce.wx.commons.util.Constant;
 import com.eyslce.wx.mp.domain.SysUser;
+import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,20 @@ public class BaseController {
         return HttpResult.builder()
                 .msg(Constant.SUCCESS_MSG)
                 .success(true)
+                .build();
+    }
+
+    protected <T> HttpResult success(PageInfo<T> pageInfo) {
+        return HttpResult.builder()
+                .msg(Constant.SUCCESS_MSG)
+                .success(true)
+                .data(pageInfo.getList())
+                .page(Page.builder()
+                        .page(pageInfo.getPageNum())
+                        .pageSize(pageInfo.getPageSize())
+                        .total(pageInfo.getSize())
+                        .totalPage(pageInfo.getPages())
+                        .build())
                 .build();
     }
 

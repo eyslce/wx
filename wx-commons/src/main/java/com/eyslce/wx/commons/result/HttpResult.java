@@ -21,4 +21,8 @@ public class HttpResult<T> {
      * 数据对象
      */
     private T data;
+    /**
+     * 分页对象
+     */
+    private Page page;
 }

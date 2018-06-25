@@ -17,10 +17,10 @@ public class FansServiceImpl implements IFansService {
     private AccountFansDao accountFansDao;
 
     @Override
-    public List<AccountFans> getList(FansQuery query) {
+    public PageInfo<AccountFans> getList(FansQuery query) {
         PageHelper.startPage(query.getPage(), query.getPageSize());
         List<AccountFans> list = accountFansDao.getFansListByPage(query);
         PageInfo<AccountFans> pageInfo = new PageInfo(list);
-        return list;
+        return pageInfo;
     }
 }

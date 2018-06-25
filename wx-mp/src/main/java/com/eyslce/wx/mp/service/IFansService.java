@@ -2,9 +2,8 @@ package com.eyslce.wx.mp.service;
 
 import com.eyslce.wx.mp.domain.AccountFans;
 import com.eyslce.wx.mp.query.FansQuery;
-
-import java.util.List;
+import com.github.pagehelper.PageInfo;
 
 public interface IFansService {
-    List<AccountFans> getList(FansQuery query);
+    PageInfo<AccountFans> getList(FansQuery query);
 }
