@@ -1,8 +1,10 @@
 package com.eyslce.wx.mp.controller.admin;
 
 import com.eyslce.wx.commons.result.HttpResult;
+import com.eyslce.wx.commons.util.Constant;
 import com.eyslce.wx.mp.domain.Account;
 import com.eyslce.wx.mp.service.IAccountService;
+import com.eyslce.wx.mp.util.WxMpUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,19 +52,22 @@ public class AccountController extends BaseController {
             tmpAccount.setName(account.getName());
             accountService.update(tmpAccount);
         }
-        //todo 写入缓存
         return success(account, "操作成功");
     }
 
     @RequestMapping(value = "/listForPage")
     @ResponseBody
     public HttpResult listForPage(Account searchEntity) {
-
         List<Account> list = accountService.listForPage(searchEntity);
-        if (CollectionUtils.isEmpty(list)) {
-            return AjaxResult.success();
+        if (list.isEmpty()) {
+            return success();
         }
-
-        return AjaxResult.success(WxUtil.getAccount(list, account.getName()));
+        Account account;
+        if (null != searchEntity && null != searchEntity.getId()) {
+            account = accountService.getById(searchEntity.getId());
+        } else {
+            account = accountService.getSingleAccount();
+        }
+        return success(WxMpUtil.getAccount(list, account.getName()), Constant.SUCCESS_MSG);
     }
 }

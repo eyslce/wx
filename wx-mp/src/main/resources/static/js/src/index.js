@@ -79,8 +79,6 @@ layui.use(['element', 'layer', 'upload'], function () {
         jump(hash);
     });
 
-    $("#userName").text(localStorage.username);
-
     //获取当前公众号及其他公众号
     getCountStatus();
 });
@@ -88,7 +86,7 @@ layui.use(['element', 'layer', 'upload'], function () {
 //获取当前公众号及其他公众号
 function getCountStatus(id) {
     $.ajax({
-        url: '/account/listForPage',
+        url: '/admin/account/listForPage',
         data: {id: id},
         success: function (result) {
             if (result.success) {
@@ -97,7 +95,7 @@ function getCountStatus(id) {
                 } else {
                     renderHtml({
                         targetId: 'counnt_nav',
-                        template: "/views/layout/nav.html",
+                        template: "/admin/nav.html",
                         htmlData: result
                     });
                 }
@@ -153,7 +151,7 @@ $("#exit").on("click", function () {
 /**
  * hashchange的回调函数，渲染右侧
  *
- * @author zhaoqf
+ *
  */
 function hashchange() {
     var hash = (location.hash == "" || location.hash.length === 1) ? homeHash : location.hash.substring(1);
@@ -177,7 +175,7 @@ function hashchange() {
 /**
  * 改变hash方式跳转
  *
- * @author zhaoqf
+ *
  */
 function jump(hash) {
     // if (getCookie("username")) {
@@ -194,7 +192,7 @@ function jump(hash) {
 /**
  * 获取hash中的参数，hash=/aaa/aaa[a=1&b=2]
  *
- * @author zhaoqf
+ *
  */
 function getHashParam() {
     var hash = location.hash;

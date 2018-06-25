@@ -1,6 +1,8 @@
 package com.eyslce.wx.commons.util;
 
 public class Constant {
+    public static final String SUCCESS_MSG = "操作成功";
+
     public static final String SYSTEM_NAME = "wx";
     public static final String SYSTEM_VERSION = "1.0.0";
     public static final String SYSTEM_UPDATE_TIME = "2018-06-01";

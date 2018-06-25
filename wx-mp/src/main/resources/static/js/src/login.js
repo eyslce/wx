@@ -37,7 +37,6 @@ layui.use(['form', 'layer'], function () {
                         localStorage.clear('remember');
                         localStorage.clear('password');
                     }
-                    localStorage.setItem('username', result.data?result.data:"管理员");
                     window.location.href = "/admin/index.html";
                 }else{
                     layer.msg(result.msg || "登录失败");

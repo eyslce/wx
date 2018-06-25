@@ -5,8 +5,9 @@ package com.eyslce.wx.mp.domain;
 import lombok.Data;
 
 
-
-
+/**
+ * 系统用户
+ */
 @Data
 public class SysUser  {
     

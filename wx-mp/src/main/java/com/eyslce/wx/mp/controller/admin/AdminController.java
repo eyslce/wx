@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
@@ -23,8 +24,10 @@ public class AdminController extends BaseController {
     private ISysConfigService sysConfigService;
 
     @GetMapping(value = {"/", "/index"})
-    public String index() {
-        return "admin/index";
+    public ModelAndView index() {
+        ModelAndView view = new ModelAndView("admin/index");
+        view.addObject("username", getUserName());
+        return view;
     }
 
     @GetMapping(value = {"/content"})
@@ -40,6 +43,11 @@ public class AdminController extends BaseController {
     @GetMapping("stytem")
     public String stytem() {
         return "admin/stytem";
+    }
+
+    @GetMapping("nav")
+    public String nav() {
+        return "admin/nav";
     }
 
     @PostMapping("sysinfo")

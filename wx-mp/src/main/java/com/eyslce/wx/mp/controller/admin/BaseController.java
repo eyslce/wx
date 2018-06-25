@@ -2,6 +2,8 @@ package com.eyslce.wx.mp.controller.admin;
 
 import com.alibaba.fastjson.JSON;
 import com.eyslce.wx.commons.result.HttpResult;
+import com.eyslce.wx.commons.util.Constant;
+import com.eyslce.wx.mp.domain.SysUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,13 @@ public class BaseController {
 
     @Autowired
     private ThymeleafViewResolver thymeleafViewResolver;
+
+    protected HttpResult success() {
+        return HttpResult.builder()
+                .msg(Constant.SUCCESS_MSG)
+                .success(true)
+                .build();
+    }
 
     /**
      * 成功返回，不带data
@@ -114,5 +123,18 @@ public class BaseController {
         boolean isAjax = request.getHeader("x-requested-with") != null &&
                 request.getHeader("x-requested-with").equalsIgnoreCase("XMLHttpRequest");
         return isAjax;
+    }
+
+    /**
+     * 获取账户名
+     *
+     * @return
+     */
+    protected String getUserName() {
+        SysUser user = (SysUser) request.getSession().getAttribute("user");
+        if (null == user) {
+            return null;
+        }
+        return user.getAccount();
     }
 }

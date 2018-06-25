@@ -29,7 +29,7 @@ CREATE TABLE `sys_user` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-insert  into `sys_user`(`id`,`account`,`pwd`,`true_name`,`sex`,`phone`,`email`,`avatar`,`flag`,`create_time`,`update_time`) values ('1','smartwx','fe5c291e5b5a8d8843ee455d163e1447','smartwx','0','','',NULL,NULL,NULL,NULL);
+insert  into `sys_user`(`id`,`account`,`pwd`,`true_name`,`sex`,`phone`,`email`,`avatar`,`flag`,`create_time`,`update_time`) values ('1','wms','de715d4979bbe0a778bb9a23267dce51','wms','0','','',NULL,NULL,NULL,NULL);
 
 /*公众号表 */
 DROP TABLE IF EXISTS `wxcms_account`;
