@@ -3,6 +3,8 @@ package com.eyslce.wx.mp.config;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.support.http.StatViewServlet;
 import com.alibaba.druid.support.http.WebStatFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -14,6 +16,7 @@ import java.sql.SQLException;
 
 @Configuration
 public class DruidConfig {
+    Logger logger = LoggerFactory.getLogger(DruidConfig.class);
     @Value("${spring.datasource.url}")
     private String url;
     @Value("${spring.datasource.username}")
@@ -84,7 +87,7 @@ public class DruidConfig {
             // 监控统计用的filter:stat;日志用的filter:log4j;防御sql注入的filter:wall
             dataSource.setFilters("stat");
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("sql error", e);
         }
         return dataSource;
     }
