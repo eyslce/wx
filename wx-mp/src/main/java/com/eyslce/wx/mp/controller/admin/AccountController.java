@@ -10,9 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * 公众号管理
@@ -25,12 +23,17 @@ public class AccountController extends BaseController {
 
     @RequestMapping("add")
     public String add() {
-        return "admin/account_add";
+        return "admin/account/add";
     }
 
     @RequestMapping("url")
     public String url() {
-        return "admin/account_url";
+        return "admin/account/url";
+    }
+
+    @RequestMapping("form")
+    public String form() {
+        return "admin/account/form";
     }
 
     @RequestMapping("getUrl")
@@ -53,6 +56,21 @@ public class AccountController extends BaseController {
             accountService.update(tmpAccount);
         }
         return success(account, "操作成功");
+    }
+
+    @RequestMapping(value = "/urltoken")
+    @ResponseBody
+    public HttpResult urltoken() {
+        //目前只支持单个
+        Account account = accountService.getSingleAccount();
+        List<String> msgCountList = new ArrayList<String>();
+        for (int i = 1; i < 8; i++) {
+            msgCountList.add(String.valueOf(i));
+        }
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("account", account);
+        data.put("msgCountList", msgCountList);
+        return success(data, Constant.SUCCESS_MSG);
     }
 
     @RequestMapping(value = "/listForPage")

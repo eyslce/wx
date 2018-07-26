@@ -24,26 +24,27 @@
                         <div class="layui-form-item">
                             <label class="layui-form-label">URL</label>
                             <div class="layui-input-block">
-                                <input type="text" name="title" readonly lay-verify="required" placeholder="请输入标题"
-                                       class="layui-input">
+                                <input type="text" name="title" readonly placeholder="请输入url" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label">Token</label>
                             <div class="layui-input-block">
-                                <input type="email" name="email" placeholder="Token" class="layui-input">
+                                <input type="text" name="token" placeholder="Token" class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"><i>*</i>AppID</label>
                             <div class="layui-input-block">
-                                <input type="email" name="email" placeholder="Token" class="layui-input">
+                                <input type="text" name="appid" lay-verify="required" placeholder="Token"
+                                       class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
                             <label class="layui-form-label"><i>*</i>AppSecret</label>
                             <div class="layui-input-block">
-                                <input type="email" name="appsecret" placeholder="AppSecret" class="layui-input">
+                                <input type="text" name="appsecret" lay-verify="required" placeholder="AppSecret"
+                                       class="layui-input">
                             </div>
                         </div>
                         <div class="layui-form-item">
@@ -77,7 +78,7 @@
         var $ = layui.$;
 
         $.ajax({
-            url: '/wxcms/urltoken',
+            url: '/admin/account/urltoken',
             type: 'POST',
             async: false,
             dataType: 'json',
@@ -85,7 +86,7 @@
                 if (result.success) {
                     renderHtml({
                         targetId: "url_form",
-                        template: "form",
+                        template: "/admin/account/form",
                         htmlData: result
                     });
                     $("#url_img").attr("src", "http://open.weixin.qq.com/qr/code?username=" + result.data.account.account);
@@ -97,7 +98,7 @@
         //监听提交
         form.on('submit(url_form)', function (data) {
             $.ajax({
-                url: '/wxcms/getUrl',
+                url: '/admin/account/getUrl',
                 type: 'POST',
                 async: false,
                 dataType: 'json',
