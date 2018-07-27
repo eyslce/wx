@@ -48,15 +48,15 @@
 
     <insert id="add" parameterType="com.eyslce.wx.mp.domain.MsgBase" flushCache="true" useGeneratedKeys="true"
             keyProperty="id">
-		INSERT INTO wxcms_msg_base ( MSG_TYPE,INPUT_CODE,RULE,ENABLE,READ_COUNT,FAVOUR_COUNT,CREATE_TIME )  VALUES ( #{msgtype},#{inputcode},#{rule},#{enable},#{readcount},#{favourcount},#{createTime} )
+		INSERT INTO wxcms_msg_base ( MSG_TYPE,INPUT_CODE,RULE,ENABLE,READ_COUNT,FAVOUR_COUNT,CREATE_TIME )  VALUES ( #{msgType},#{inputCode},#{rule},#{enable},#{readCount},#{favourCount},#{createTime} )
 	</insert>
 
     <update id="update" parameterType="com.eyslce.wx.mp.domain.MsgBase" flushCache="true">
 		UPDATE wxcms_msg_base SET MSG_TYPE = #{msgtype},INPUT_CODE = #{inputcode},RULE = #{rule},ENABLE = #{enable},READ_COUNT = #{readcount},FAVOUR_COUNT = #{favourcount},CREATE_TIME = #{createTime} WHERE ID = #{id}
 	</update>
 
-    <update id="updateInputcode" parameterType="com.eyslce.wx.mp.domain.MsgBase" flushCache="true">
-		UPDATE wxcms_msg_base SET INPUT_CODE = #{inputcode} WHERE ID = #{id}
+    <update id="updateInputCode" parameterType="com.eyslce.wx.mp.domain.MsgBase" flushCache="true">
+        UPDATE wxcms_msg_base SET INPUT_CODE = #{inputCode} WHERE ID = #{id}
 	</update>
 
     <delete id="delete" parameterType="com.eyslce.wx.mp.domain.MsgBase">

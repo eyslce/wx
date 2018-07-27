@@ -2,13 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.eyslce.wx.mp.dao.MsgTextDao">
-
+    <resultMap id="result" type="com.eyslce.wx.mp.domain.MsgText">
+        <!-- id属性来映射主键字段 -->
+        <id column="id" property="id"/>
+        <!-- result属性映射非主键字段 -->
+        <result column="title" property="title"/>
+        <result column="content" property="content"/>
+        <result column="base_id" property="baseId"/>
+        <result column="account" property="account"/>
+        <result column="create_time" property="createTime"/>
+        <result column="msg_type" property="msgType"/>
+        <result column="input_code" property="inputCode"/>
+    </resultMap>
     <select id="getMsgTextByPage" parameterType="com.eyslce.wx.mp.domain.MsgText"
-            resultType="com.eyslce.wx.mp.domain.MsgText">
+            resultMap="result">
         SELECT b.msg_type ,b.input_code ,t.* FROM wxcms_msg_text t , wxcms_msg_base b
         WHERE t.base_id = b.id
-        <if test="inputcode != '' and inputcode != null">
-            and b.input_code=#{inputcode}
+        <if test="inputCode != '' and inputCode != null">
+            and b.input_code=#{inputCode}
         </if>
         <if test="account != null">
             and account = #{account}
@@ -16,11 +27,11 @@
         ORDER BY b.create_time DESC
     </select>
     <select id="getMsgTextList" parameterType="com.eyslce.wx.mp.domain.MsgText"
-            resultType="com.eyslce.wx.mp.domain.MsgText">
+            resultMap="result">
         SELECT b.msg_type ,b.input_code ,t.* FROM wxcms_msg_text t , wxcms_msg_base b
         WHERE t.base_id = b.id
-        <if test="inputcode != '' and inputcode != null">
-            and b.input_code=#{inputcode}
+        <if test="inputCode != '' and inputCode != null">
+            and b.input_code=#{inputCode}
         </if>
         <if test="account != null">
             and account = #{account}

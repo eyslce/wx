@@ -45,8 +45,8 @@ public interface MsgBaseDao {
 	public Integer add(MsgBase entity);
 
 	public void update(MsgBase entity);
-	
-	public void updateInputcode(MsgBase entity);
+
+	public void updateInputCode(MsgBase entity);
 
 	public void delete(MsgBase entity);
 

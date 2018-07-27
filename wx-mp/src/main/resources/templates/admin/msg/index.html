@@ -20,7 +20,7 @@
         var table = layui.table;
         var table_header = [{type: 'checkbox'},
             {type: 'numbers', title: '序号', width: 50},
-            {field: 'inputcode', title: '关键词', width: 150, align: 'center'},
+            {field: 'inputCode', title: '关键词', width: 150, align: 'center'},
             {field: 'title', title: '标题', width: 150, align: 'center'},
             {field: 'content', title: '消息描述', align: 'center'},
             {
@@ -33,7 +33,7 @@
         var tableObj = table.render({
             id: 'list_table',
             elem: '#list_table',
-            url: '/msgtext/list',
+            url: '/admin/msg/list',
             align: "center",
             cols: [
                 table_header
@@ -48,8 +48,8 @@
         $("#msg_add").click(function () {
             showDialog({
                 title: '添加'
-                , template: 'add'
-                , saveUrl: '/msgtext/updateText'
+                , template: '/admin/msg/add'
+                , saveUrl: '/admin/msg/updateText'
                 , tableObj: tableObj
             })
         });
@@ -67,7 +67,7 @@
             }
             showConfirm("确认删除？", function () {
                 $.ajax({
-                    url: '/msgtext/deleteById',
+                    url: '/admin/msg/deleteById',
                     data: {"baseId": arr.join(",")},
                     success: function (result) {
                         if (result.success) {
@@ -90,15 +90,15 @@
             if (layEvent === 'edit') {
                 showDialog({
                     title: '修改',
-                    template: 'edit',
-                    saveUrl: '/msgtext/updateText',
+                    template: '/admin/msg/edit',
+                    saveUrl: '/admin/msg/updateText',
                     tableObj: tableObj,
                     htmlData: data
                 })
             } else if (layEvent === 'mass') {
                 showDialog({
                     title: '群发'
-                    , template: 'mass'
+                    , template: '/admin/msg/mass'
                     , height: 600
                     , yes: function (index) {
                         var checkStatus = table.checkStatus('fans'); //test即为基础参数id对应的值
