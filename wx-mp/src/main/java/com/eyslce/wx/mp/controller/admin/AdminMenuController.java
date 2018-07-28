@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminMenuController extends BaseController {
     @RequestMapping("index")
     public String index() {
-        return "admin/menu_index";
+        return "admin/menu/index";
     }
 }

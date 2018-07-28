@@ -21,7 +21,7 @@ public class FansController extends BaseController {
 
     @RequestMapping("index")
     public String index() {
-        return "admin/fans_index";
+        return "admin/fans/index";
     }
 
     @RequestMapping("list")

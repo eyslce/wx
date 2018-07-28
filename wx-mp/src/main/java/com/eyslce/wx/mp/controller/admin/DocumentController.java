@@ -8,6 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class DocumentController extends BaseController {
     @RequestMapping("index")
     public String index() {
-        return "admin/document_index";
+        return "admin/document/index";
     }
 }

@@ -2,7 +2,7 @@
     <div class="layui-anim layui-anim-upbit">
         <div class="layui-form-item wx-search" id="list_form">
             <div class="layui-inline">
-                <input type="text" name="inputcode" placeholder="请输入关键字" autocomplete="off" class="layui-input">
+                <input type="text" name="inputCode" placeholder="请输入关键字" autocomplete="off" class="layui-input">
             </div>
             <button class="layui-btn btn-primary" id="search">搜索</button>
             <div class="layui-inline right">
@@ -34,7 +34,7 @@
         var tableObj = table.render({
             id: 'list_table',
             elem: '#list_table',
-            url: '/tplmsgtext/list',
+            url: '/admin/tpl/list',
             align: "center",
             cols: [
                 table_header
@@ -49,8 +49,8 @@
         $("#msg_add").click(function () {
             showDialog({
                 title: '添加'
-                , template: 'add'
-                , saveUrl: '/tplmsgtext/updateText'
+                , template: '/admin/tpl/add'
+                , saveUrl: '/admin/tpl/updateText'
                 , tableObj: tableObj
             })
         });
@@ -68,7 +68,7 @@
             }
             showConfirm("确认删除？", function () {
                 $.ajax({
-                    url: '/tplmsgtext/deleteById',
+                    url: '/admin/tpl/deleteById',
                     data: {"baseId": arr.join(",")},
                     success: function (result) {
                         if (result.success) {
@@ -91,8 +91,8 @@
             if (layEvent === 'edit') {
                 showDialog({
                     title: '修改',
-                    template: 'edit',
-                    saveUrl: '/tplmsgtext/updateText',
+                    template: '/admin/tpl/edit',
+                    saveUrl: '/admin/tpl/updateText',
                     tableObj: tableObj,
                     htmlData: data,
                 })
