@@ -1,7 +1,8 @@
 package com.eyslce.wx.mp.config;
 
-import com.eyslce.wx.commons.util.WxConfigurationProperties;
+import com.eyslce.wx.mp.domain.Account;
 import com.eyslce.wx.mp.handler.*;
+import com.eyslce.wx.mp.service.IAccountService;
 import lombok.Getter;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
@@ -22,8 +23,6 @@ public class WxMpConfiguration {
     @Autowired
     protected KfSessionHandler kfSessionHandler;
     @Autowired
-    private WxConfigurationProperties properties;
-    @Autowired
     private LocationHandler locationHandler;
     @Autowired
     private MenuHandler menuHandler;
@@ -33,15 +32,18 @@ public class WxMpConfiguration {
     private UnsubscribeHandler unsubscribeHandler;
     @Autowired
     private SubscribeHandler subscribeHandler;
+    @Autowired
+    private IAccountService accountService;
 
     @Bean
     @ConditionalOnMissingBean
     public WxMpConfigStorage configStorage() {
         WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
-        configStorage.setAppId(this.properties.getMp().getAppId());
-        configStorage.setSecret(this.properties.getMp().getSecret());
-        configStorage.setToken(this.properties.getMp().getToken());
-        configStorage.setAesKey(this.properties.getMp().getAesKey());
+        Account account = accountService.getSingleAccount();
+        configStorage.setAppId(account.getAppid());
+        configStorage.setSecret(account.getAppsecret());
+        configStorage.setToken(account.getToken());
+        configStorage.setAesKey("");
         return configStorage;
     }
 

@@ -2,13 +2,13 @@
 package com.eyslce.wx.mp.domain;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+
+;
 
 
 @Data
@@ -33,6 +33,7 @@ public class AccountFans {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss",iso= DateTimeFormat.ISO.DATE_TIME)
 	private Date createTime;//创建时间
+	private String account;
 
 	public String getNicknameStr() {
 		if(this.getNickname() != null){

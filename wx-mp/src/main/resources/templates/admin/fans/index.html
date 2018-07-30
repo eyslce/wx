@@ -70,7 +70,7 @@
                 btn: ['确认', '取消'] //按钮
             }, function () {
                 $.ajax({
-                    url: '/wxapi/syncAccountFansList',
+                    url: '/admin/fans/syncFansList',
                     success: function (result) {
                         if (result.success) {
                             layer.msg("同步成功");
@@ -104,7 +104,7 @@
             // 同步粉丝
             if (layEvent === 'sync') {
                 $.ajax({
-                    url: '/wxapi/syncAccountFans',
+                    url: '/admin/fans/syncFans',
                     data:{openId:data.openId},
                     success: function (result) {
                         if (result.success) {
