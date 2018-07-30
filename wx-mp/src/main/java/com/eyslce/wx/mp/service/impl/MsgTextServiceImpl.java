@@ -8,6 +8,7 @@ import com.eyslce.wx.mp.domain.MsgText;
 import com.eyslce.wx.mp.service.IMsgTextService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -56,10 +57,14 @@ public class MsgTextServiceImpl implements IMsgTextService {
     }
 
     @Override
-    public void delete(MsgText msgText) {
-        MsgBase base = new MsgBase();
-        base.setId(msgText.getBaseId());
-        msgBaseDao.delete(base);
-        msgTextDao.delete(msgText);
+    public void delete(String ids) {
+        String[] idArr = StringUtils.split(ids, ",");
+        for (String id : idArr) {
+            MsgText msgText = getById(id);
+            msgTextDao.delete(msgText);
+            MsgBase base = msgBaseDao.getById(msgText.getBaseId().toString());
+            msgBaseDao.delete(base);
+        }
+
     }
 }

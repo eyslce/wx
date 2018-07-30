@@ -12,5 +12,5 @@ public interface IMsgTextService {
 
     void update(MsgText msgText);
 
-    void delete(MsgText msgText);
+    void delete(String ids);
 }

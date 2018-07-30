@@ -38,7 +38,7 @@
         </if>
         ORDER BY b.create_time DESC
     </select>
-    <select id="getById" parameterType="java.lang.String" resultType="com.eyslce.wx.mp.domain.MsgText">
+    <select id="getById" parameterType="java.lang.String" resultMap="result">
         SELECT * FROM wxcms_msg_text WHERE ID = #{id}
     </select>
 
@@ -66,7 +66,7 @@
         DELETE FROM wxcms_msg_text WHERE ID = #{id}
     </delete>
 
-    <select id="getByBaseId" parameterType="java.lang.String" resultType="com.eyslce.wx.mp.domain.MsgText">
+    <select id="getByBaseId" parameterType="java.lang.String" resultMap="result">
 		SELECT * FROM wxcms_msg_text WHERE base_id = #{baseid}
 	</select>
 </mapper>

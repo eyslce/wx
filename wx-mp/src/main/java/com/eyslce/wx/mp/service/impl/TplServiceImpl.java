@@ -58,15 +58,14 @@ public class TplServiceImpl implements ITplService {
 
     @Override
     public void delete(String ids) {
-        String[] idsArr = StringUtils.split(ids, ",");
-        for (String id : idsArr) {
+        String[] idArr = StringUtils.split(ids, ",");
+        for (String id : idArr) {
             TplMsgText tplMsgText = getById(id);
             if(tplMsgText == null){
                 continue;
             }
             tplMsgTextDao.delete(tplMsgText);
-            MsgBase base = new MsgBase();
-            base.setId(tplMsgText.getBaseId());
+            MsgBase base = msgBaseDao.getById(tplMsgText.getBaseId().toString());
             msgBaseDao.delete(base);
         }
     }

@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.List;
-
 @Controller
 @RequestMapping("admin/tpl")
 public class TplController extends BaseController {
@@ -62,8 +60,8 @@ public class TplController extends BaseController {
 
     @RequestMapping(value = "/deleteById")
     @ResponseBody
-    public HttpResult deleteById(String id) {
-        tplService.delete(id);
+    public HttpResult deleteById(String ids) {
+        tplService.delete(ids);
         return success();
     }
 }

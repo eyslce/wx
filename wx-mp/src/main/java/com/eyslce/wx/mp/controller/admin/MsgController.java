@@ -57,8 +57,8 @@ public class MsgController extends BaseController {
 
     @RequestMapping(value = "deleteById")
     @ResponseBody
-    public HttpResult deleteById(MsgText entity) {
-        msgTextService.delete(entity);
+    public HttpResult deleteById(String ids) {
+        msgTextService.delete(ids);
         return success();
     }
 

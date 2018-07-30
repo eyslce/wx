@@ -39,7 +39,7 @@
         </if>
         ORDER BY b.create_time DESC
     </select>
-    <select id="getById" parameterType="java.lang.String" resultType="com.eyslce.wx.mp.domain.TplMsgText">
+    <select id="getById" parameterType="java.lang.String" resultMap="result">
         SELECT * FROM wxcms_tpl_msg_text WHERE ID = #{id}
     </select>
 
