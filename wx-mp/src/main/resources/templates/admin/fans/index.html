@@ -1,8 +1,9 @@
 <style>
-    img.fans-portrait{
-        width:50px;
-        height:50px;
+    img.fans-portrait {
+        width: 50px;
+        height: 50px;
     }
+
     .fsh-rightPanel .layui-table-body .layui-table-cell {
         height: 50px;
         line-height: 50px;
@@ -29,17 +30,23 @@
         var table = layui.table;
         var table_header = [ //表头
             {type: 'checkbox'},
-            {type: 'numbers', title: '序号',width:50},
+            {type: 'numbers', title: '序号', width: 50},
             {field: 'nicknameStr', title: '昵称', width: 150, align: 'center'},
-            {field: 'headimgurl', title: '头像', width: 80, align: 'center',templet:function (d) {
+            {
+                field: 'headimgurl', title: '头像', width: 80, align: 'center', templet: function (d) {
                 return "<img class='fans-portrait' src=" + d.headimgurl + " />"
-            }},
-            {field: 'gender', title: '性别',  width: 70, align: 'center',templet:function (d) {
+            }
+            },
+            {
+                field: 'gender', title: '性别', width: 70, align: 'center', templet: function (d) {
                 return d.gender == 1 ? '男' : '女';
-            }},
-            {field: 'city', title: '省/市', width: 150,align: 'center',templet:function (d) {
+            }
+            },
+            {
+                field: 'city', title: '省/市', width: 150, align: 'center', templet: function (d) {
                 return (d.province + '-' + d.city);
-            }},
+            }
+            },
             {field: 'subscribeTime', title: '关注时间', width: 180, align: 'center'},
             {
                 field: 'lock', title: '操作', width: 300, align: 'center', templet: function (d) {
@@ -94,23 +101,23 @@
             if (layEvent === 'mass') {
                 showDialog({
                     title: '发送消息',
-                    template: 'msglist',
-                    height:600,
+                    template: '/admin/fans/msglist',
+                    height: 600,
                     tableObj: tableObj,
                     htmlData: data,
-                    btn:0
+                    btn: 0
                 })
             }
             // 同步粉丝
             if (layEvent === 'sync') {
                 $.ajax({
                     url: '/admin/fans/syncFans',
-                    data:{openId:data.openId},
+                    data: {openId: data.openId},
                     success: function (result) {
                         if (result.success) {
                             showDialog({
                                 title: '粉丝详细信息'
-                                , template: 'fansInfo'
+                                , template: '/admin/fans/info'
                                 , saveUrl: ''
                                 , width: 400
                                 , height: 500

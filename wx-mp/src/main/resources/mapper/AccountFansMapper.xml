@@ -2,9 +2,26 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 
 <mapper namespace="com.eyslce.wx.mp.dao.AccountFansDao">
-
+    <resultMap id="result" type="com.eyslce.wx.mp.domain.AccountFans">
+        <id column="id" property="id"/>
+        <result column="open_id" property="openId"/>
+        <result column="subscribe_status" property="subscribeStatus"/>
+        <result column="subscribe_time" property="subscribeTime"/>
+        <result column="nick_name" property="nicknameStr"/>
+        <result column="gender" property="gender"/>
+        <result column="language" property="language"/>
+        <result column="country" property="country"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="head_img_url" property="headimgurl"/>
+        <result column="status" property="status"/>
+        <result column="remark" property="remark"/>
+        <result column="wx_id" property="wxid"/>
+        <result column="account" property="account"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
     <select id="list" parameterType="com.eyslce.wx.mp.domain.AccountFans"
-            resultType="com.eyslce.wx.mp.domain.AccountFans">
+            resultMap="result">
         SELECT * FROM wxcms_account_fans ORDER BY ID
     </select>
 
@@ -12,7 +29,7 @@
         SELECT count(id) FROM wxcms_account_fans
     </select>
 
-    <select id="getFansListByPage" resultType="com.eyslce.wx.mp.domain.AccountFans">
+    <select id="getFansListByPage" resultMap="result">
         SELECT * FROM wxcms_account_fans
         <where>
             <if test="nicknameStr != null">
@@ -25,17 +42,17 @@
         ORDER BY create_time desc
     </select>
 
-    <select id="getLastOpenId" resultType="com.eyslce.wx.mp.domain.AccountFans">
+    <select id="getLastOpenId" resultMap="result">
         SELECT * FROM wxcms_account_fans
         ORDER BY ID DESC
         LIMIT 0 , 1
     </select>
 
-    <select id="getById" parameterType="java.lang.String" resultType="com.eyslce.wx.mp.domain.AccountFans">
+    <select id="getById" parameterType="java.lang.String" resultMap="result">
         SELECT * FROM wxcms_account_fans WHERE ID = #{id}
     </select>
 
-    <select id="getByOpenId" parameterType="java.lang.String" resultType="com.eyslce.wx.mp.domain.AccountFans">
+    <select id="getByOpenId" parameterType="java.lang.String" resultMap="result">
         SELECT * FROM wxcms_account_fans WHERE OPEN_ID = #{openId}
     </select>
 
