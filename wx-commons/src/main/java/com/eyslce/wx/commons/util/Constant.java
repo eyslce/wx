@@ -1,59 +1,13 @@
 package com.eyslce.wx.commons.util;
 
+import com.google.common.collect.ImmutableList;
+
 public class Constant {
     public static final String SUCCESS_MSG = "操作成功";
 
     public static final String SYSTEM_NAME = "wx";
     public static final String SYSTEM_VERSION = "1.0.0";
     public static final String SYSTEM_UPDATE_TIME = "2018-06-01";
-
-    public final static String firstMenuName = "生活助手";
-    public final static String secondMenuName = "";
-    public final static String thirdMenuName = "";
-
-
-    public enum Menu {
-        Delivery("delivery", "查询快递");
-
-        private String key;
-        private String name;
-
-        Menu(String key, String name) {
-            this.key = key;
-            this.name = name;
-        }
-
-        public String getKey() {
-            return key;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public static Menu getMenu(String key) {
-            for (Menu menu : Menu.values()) {
-                if (menu.key.equals(key)) {
-                    return menu;
-                }
-            }
-            return null;
-        }
-    }
-
-    public enum Lang {
-        Eng("eng"),
-        CHI_SIM("chi_sim");
-        private String index;
-
-        Lang(String index) {
-            this.index = index;
-        }
-
-        public String getIndex() {
-            return index;
-        }
-    }
 
     public enum MsgType {
 
@@ -76,6 +30,16 @@ public class Constant {
             this.name = name;
         }
     }
+
+    public static final ImmutableList<String> MENU_NEED_KEY = ImmutableList.<String>builder()
+            .add("click")
+            .add("scancode_push")
+            .add("scancode_waitmsg")
+            .add("pic_sysphoto")
+            .add("pic_photo_or_album")
+            .add("pic_weixin")
+            .add("location_select")
+            .build();
 
 
 }

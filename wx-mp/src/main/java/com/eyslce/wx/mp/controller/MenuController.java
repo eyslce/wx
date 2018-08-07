@@ -1,9 +1,6 @@
 package com.eyslce.wx.mp.controller;
 
-import com.eyslce.wx.commons.util.Constant;
-import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.bean.menu.WxMenu;
-import me.chanjar.weixin.common.bean.menu.WxMenuButton;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.menu.WxMpGetSelfMenuInfoResult;
@@ -37,16 +34,16 @@ public class MenuController {
     public String menuCreateSample() throws WxErrorException {
         WxMenu menu = new WxMenu();
         //一级菜单 --生活助手
-        WxMenuButton firstMenu = new WxMenuButton();
-        firstMenu.setName(Constant.firstMenuName);
-        //二级菜单
-        WxMenuButton deliveryBtn = new WxMenuButton();
-        deliveryBtn.setType(WxConsts.MenuButtonType.CLICK);
-        deliveryBtn.setName(Constant.Menu.Delivery.getName());
-        deliveryBtn.setKey(Constant.Menu.Delivery.getKey());
-
-        firstMenu.getSubButtons().add(deliveryBtn);
-        menu.getButtons().add(firstMenu);
+//        WxMenuButton firstMenu = new WxMenuButton();
+//        firstMenu.setName(Constant.firstMenuName);
+//        //二级菜单
+//        WxMenuButton deliveryBtn = new WxMenuButton();
+//        deliveryBtn.setType(WxConsts.MenuButtonType.CLICK);
+//        deliveryBtn.setName(Constant.Menu.Delivery.getName());
+//        deliveryBtn.setKey(Constant.Menu.Delivery.getKey());
+//
+//        firstMenu.getSubButtons().add(deliveryBtn);
+//        menu.getButtons().add(firstMenu);
 
         return this.wxService.getMenuService().menuCreate(menu);
     }

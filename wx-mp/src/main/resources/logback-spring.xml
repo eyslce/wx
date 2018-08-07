@@ -100,8 +100,9 @@
     </logger>
     <logger name="org.apache.ibatis" level="DEBUG" additivity="false">
         <appender-ref ref="debug"/>
+        <appender-ref ref="console"/>
     </logger>
-    <root level="info">
-        <appender-ref ref="debug"/>
+    <root level="warn">
+        <appender-ref ref="console"/>
     </root>
 </configuration>
