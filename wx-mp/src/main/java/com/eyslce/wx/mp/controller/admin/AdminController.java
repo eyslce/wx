@@ -23,14 +23,14 @@ public class AdminController extends BaseController {
     @Autowired
     private ISysConfigService sysConfigService;
 
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping(value = {"","/", "/index"})
     public ModelAndView index() {
         ModelAndView view = new ModelAndView("admin/index");
         view.addObject("username", getUserName());
         return view;
     }
 
-    @GetMapping(value = {"/content"})
+    @GetMapping(value = {"content"})
     public String indexx() {
         return "admin/content";
     }

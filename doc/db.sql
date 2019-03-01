@@ -273,3 +273,12 @@ CREATE TABLE `wxcms_tpl_msg_text` (
   `create_time` datetime DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `wxcms_user_tag`;
+CREATE TABLE `wxcms_user_tag` (
+  `id` int(11) NOT NULL COMMENT '主键',
+  `name` varchar(10) DEFAULT NULL COMMENT '标签名称',
+  `count` int(11) DEFAULT '0' COMMENT '该标签的粉丝数量',
+  `create_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建日期',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

@@ -39,11 +39,11 @@ public class WxMpConfiguration {
     @ConditionalOnMissingBean
     public WxMpConfigStorage configStorage() {
         WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
-        Account account = accountService.getSingleAccount();
-        configStorage.setAppId(account.getAppid());
-        configStorage.setSecret(account.getAppsecret());
-        configStorage.setToken(account.getToken());
-        configStorage.setAesKey("");
+//        Account account = accountService.getSingleAccount();
+//        configStorage.setAppId(account.getAppid());
+//        configStorage.setSecret(account.getAppsecret());
+//        configStorage.setToken(account.getToken());
+//        configStorage.setAesKey("");
         return configStorage;
     }
 

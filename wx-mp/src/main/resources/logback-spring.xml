@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_BASE" value="C:/workspace/wx/logs"/>
+    <property name="LOG_BASE" value="C:/Javaworkspace/wx/logs"/>
     <property name="patternNologger"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level]: [%thread] - %msg%n"/>
     <property name="defaultPattern"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level]: [%thread] - %logger{36} - %msg%n"/>
-    <property name="ofoPattern"
-              value="%msg%n"/>
+
 
     <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <file>${LOG_BASE}/info.log</file>
@@ -17,7 +16,7 @@
             <!-- keep 180 days' worth of history capped at 10GB total size -->
             <maxHistory>180</maxHistory>
             <maxFileSize>100MB</maxFileSize>
-            <totalSizeCap>10GB</totalSizeCap>
+            <totalSizeCap>1GB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
@@ -34,7 +33,7 @@
             <!-- keep 180 days' worth of history capped at 10GB total size -->
             <maxHistory>180</maxHistory>
             <maxFileSize>100MB</maxFileSize>
-            <totalSizeCap>10GB</totalSizeCap>
+            <totalSizeCap>1GB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
@@ -51,7 +50,7 @@
             <!-- keep 180 days' worth of history capped at 10GB total size -->
             <maxHistory>180</maxHistory>
             <maxFileSize>100MB</maxFileSize>
-            <totalSizeCap>10GB</totalSizeCap>
+            <totalSizeCap>1GB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
@@ -68,7 +67,7 @@
             <!-- keep 180 days' worth of history capped at 10GB total size -->
             <maxHistory>180</maxHistory>
             <maxFileSize>100MB</maxFileSize>
-            <totalSizeCap>10GB</totalSizeCap>
+            <totalSizeCap>1GB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
@@ -98,11 +97,11 @@
     <logger name="error" level="ERROR" additivity="false">
         <appender-ref ref="error"/>
     </logger>
-    <logger name="org.apache.ibatis" level="DEBUG" additivity="false">
-        <appender-ref ref="debug"/>
-        <appender-ref ref="console"/>
-    </logger>
-    <root level="warn">
+
+    <root>
+        <level value="info" />
+        <level value="warn" />
+        <level value="error" />
         <appender-ref ref="console"/>
     </root>
 </configuration>
