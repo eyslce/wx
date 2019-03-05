@@ -15,12 +15,7 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages = {"com.eyslce.wx.mp", "com.eyslce.wx.commons"})
 @EnableConfigurationProperties(value = WxConfigurationProperties.class)
 @EnableCaching
-public class WxMpApplication extends SpringBootServletInitializer{
-
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(WxMpApplication.class);
-    }
+public class WxMpApplication{
 
     public static void main(String[] args){
         SpringApplication.run(WxMpApplication.class,args);

@@ -53,28 +53,8 @@
     <!--此节声明的依赖 子模块必须显示声明才可使用 -->
     <dependencyManagement>
         <dependencies>
-            <!--如果要把springboot工程打包成war执行，需要该jar-->
-            <dependency>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-legacy</artifactId>
-                <version>1.0.2.RELEASE</version>
-            </dependency>
+
         </dependencies>
     </dependencyManagement>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
 </project>
