@@ -1,78 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <property name="LOG_BASE" value="C:/Javaworkspace/wx/logs"/>
-    <property name="patternNologger"
+   <property name="patternNologger"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level]: [%thread] - %msg%n"/>
     <property name="defaultPattern"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%level]: [%thread] - %logger{36} - %msg%n"/>
 
 
     <appender name="info" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_BASE}/info.log</file>
+        <file>${LOG_PATH}/info.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${LOG_BASE}/info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
-            <!-- keep 180 days' worth of history capped at 10GB total size -->
+            <!-- keep 180 days' worth of history capped at 100MB total size -->
             <maxHistory>180</maxHistory>
-            <maxFileSize>100MB</maxFileSize>
-            <totalSizeCap>1GB</totalSizeCap>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>100MB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
             <pattern>${patternNologger}</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_BASE}/error.log</file>
+        <file>${LOG_PATH}/error.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${LOG_BASE}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
-            <!-- keep 180 days' worth of history capped at 10GB total size -->
+            <!-- keep 180 days' worth of history capped at 100MB total size -->
             <maxHistory>180</maxHistory>
-            <maxFileSize>100MB</maxFileSize>
-            <totalSizeCap>1GB</totalSizeCap>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>100MB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
             <pattern>${patternNologger}</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
     <appender name="warn" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_BASE}/warn.log</file>
+        <file>${LOG_PATH}/warn.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${LOG_BASE}/warn.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/warn.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
-            <!-- keep 180 days' worth of history capped at 10GB total size -->
+            <!-- keep 180 days' worth of history capped at 100MB total size -->
             <maxHistory>180</maxHistory>
-            <maxFileSize>100MB</maxFileSize>
-            <totalSizeCap>1GB</totalSizeCap>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>100MB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
             <pattern>${patternNologger}</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>WARN</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
     <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_BASE}/debug.log</file>
+        <file>${LOG_PATH}/debug.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
             <!-- daily rollover -->
-            <fileNamePattern>${LOG_BASE}/debug.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <fileNamePattern>${LOG_PATH}/debug.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
 
-            <!-- keep 180 days' worth of history capped at 10GB total size -->
+            <!-- keep 180 days' worth of history capped at 100MB total size -->
             <maxHistory>180</maxHistory>
-            <maxFileSize>100MB</maxFileSize>
-            <totalSizeCap>1GB</totalSizeCap>
+            <maxFileSize>10MB</maxFileSize>
+            <totalSizeCap>100MB</totalSizeCap>
 
         </rollingPolicy>
         <encoder>
             <pattern>${patternNologger}</pattern>
         </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
     </appender>
 
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -81,27 +100,14 @@
         </encoder>
     </appender>
 
-    <logger name="warn" level="WARN" additivity="false">
-        <appender-ref ref="warn"/>
+    <logger name="com.eyslce.wx.mp.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="console" />
     </logger>
 
-    <logger name="debug" level="DEBUG" additivity="false">
-        <appender-ref ref="debug"/>
+    <root level="INFO">
         <appender-ref ref="console"/>
-    </logger>
-
-    <logger name="info" level="INFO" additivity="false">
         <appender-ref ref="info"/>
-    </logger>
-
-    <logger name="error" level="ERROR" additivity="false">
+        <appender-ref ref="warn"/>
         <appender-ref ref="error"/>
-    </logger>
-
-    <root>
-        <level value="info" />
-        <level value="warn" />
-        <level value="error" />
-        <appender-ref ref="console"/>
     </root>
 </configuration>

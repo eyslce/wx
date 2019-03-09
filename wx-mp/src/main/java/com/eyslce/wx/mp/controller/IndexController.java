@@ -5,21 +5,25 @@ import com.eyslce.wx.commons.util.HttpClient;
 import com.eyslce.wx.commons.util.WxConfigurationProperties;
 import com.eyslce.wx.mp.entity.DeliveryType;
 import com.eyslce.wx.mp.entity.DeliveryTypeAuto;
+import org.apache.commons.io.FileUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class IndexController {
+    Logger logger = LoggerFactory.getLogger(IndexController.class);
     @Autowired
     WxConfigurationProperties wxConfigurationProperties;
 
@@ -72,6 +76,23 @@ public class IndexController {
             e.printStackTrace();
         }
         return result;
+    }
+
+    @GetMapping("/images/{fileName}.{ext}")
+    public void image(@PathVariable("fileName") String fileName, @PathVariable("ext") String ext, HttpServletResponse response) {
+        try {
+            String file = wxConfigurationProperties.getUpload_dir() + fileName + "." + ext;
+            File imageFile = FileUtils.getFile(file);
+            if (!imageFile.isFile()) {
+                response.sendRedirect("/images/common/login-bg.jpg");
+                return;
+            }
+            byte[] content = FileUtils.readFileToByteArray(imageFile);
+            response.getOutputStream().write(content);
+        } catch (IOException e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            logger.error("image not found", e);
+        }
     }
 
 }

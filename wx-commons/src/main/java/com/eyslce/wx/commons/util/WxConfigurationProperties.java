@@ -7,6 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Data
 public class WxConfigurationProperties {
     private mp mp;
+    private String upload_dir;
     private String tulingApiUrl;
     private String tulingApiKey;
     private String tulingUserId;
