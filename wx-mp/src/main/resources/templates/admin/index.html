@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>WeChat管理系统</title>
+    <title>微信公众号管理平台</title>
     <link rel="stylesheet" href="/js/plugin/layui/css/layui.css">
     <link rel="stylesheet" href="/font/iconfont.css">
     <link rel="stylesheet" href="/css/common.css">
@@ -12,11 +12,12 @@
 <div class="layui-layout layui-layout-admin">
     <!--头部区域-->
     <div class="layui-header">
-        <div class="layui-logo">WeChat MS</div>
+        <div class="layui-logo">微信公众号管理平台</div>
         <div class="layui-nav correct">
-            <div class="layui-nav-item" id="counnt_nav">
+            <p class="layui-nav-item ">当前公众号</p>
+            <div class="layui-nav-item" id="account_nav">
                 <a href="javascript:;">
-                    <span>当前公众号</span>
+                    <span>未获取到账号</span>
                 </a>
                 <dl class="layui-nav-child">
                     <dd><a href="/admin/index.html#/admin/account/add"><i class="iconfont icon-add"></i>添加公众号</a></dd>
@@ -48,6 +49,10 @@
                     <a href="javascript:;"><i class="iconfont icon-set"></i>系统设置</a>
                     <dl class="layui-nav-child">
                         <dd>
+                            <a href="javascript:" data-url="/admin/workbench">
+                                <i class="iconfont icon-gaiicon"></i>工作台</a>
+                        </dd>
+                        <dd>
                             <a href="javascript:;" data-url="/admin/account/url">
                                 <i class="iconfont icon-link"></i>账号信息</a>
                         </dd>
@@ -70,6 +75,31 @@
                         <dd>
                             <a href="javascript:;" data-url="/admin/fans/index">
                                 <i class="iconfont icon-yonghutouxiang"></i>粉丝管理</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:" data-url="/system/tags/tags">
+                                <i class="iconfont icon-discount"></i>用户标签管理</a>
+                        </dd>
+                    </dl>
+                </li>
+                <li class="layui-nav-item layui-nav-itemed">
+                    <a href="javascript:"><i class="iconfont icon-ziyuanku"></i>素材管理</a>
+                    <dl class="layui-nav-child">
+                        <dd>
+                            <a href="javascript:" data-url="/material/document/document">
+                                <i class="iconfont icon-doc"></i>图文管理</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:" data-url="/material/image/image">
+                                <i class="iconfont icon-pic"></i>图片管理</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:" data-url="/material/video/video">
+                                <i class="iconfont icon-shipin"></i>视频管理</a>
+                        </dd>
+                        <dd>
+                            <a href="javascript:" data-url="/material/audio/audio">
+                                <i class="iconfont icon-fileaudio"></i>音频管理</a>
                         </dd>
                     </dl>
                 </li>
@@ -145,6 +175,10 @@
 <script src="/js/plugin/pagination/pagination.js"></script>
 <script src="/js/plugin/layui/src/layui.js"></script>
 <script src="/js/plugin/template-web.js"></script>
+<script src="/js/plugin/moment.js"></script>
+<script src="/js/plugin/echarts/echarts.min.js"></script>
+<script src="/js/plugin/echarts/macarons.js"></script>
+<script src="/js/util.js"></script>
 <script src="/js/mylayui.js"></script>
 <script src="/js/src/index.js"></script>
 </body>

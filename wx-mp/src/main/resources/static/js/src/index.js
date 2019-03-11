@@ -94,7 +94,7 @@ function getCountStatus(id) {
                     location.reload();
                 } else {
                     renderHtml({
-                        targetId: 'counnt_nav',
+                        targetId: 'account_nav',
                         template: "/admin/nav.html",
                         htmlData: result
                     });

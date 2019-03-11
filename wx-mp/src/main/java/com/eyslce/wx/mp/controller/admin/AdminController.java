@@ -31,7 +31,7 @@ public class AdminController extends BaseController {
     }
 
     @GetMapping(value = {"content"})
-    public String indexx() {
+    public String content() {
         return "admin/content";
     }
 
@@ -40,14 +40,19 @@ public class AdminController extends BaseController {
         return "admin/environment";
     }
 
-    @GetMapping("stytem")
-    public String stytem() {
-        return "admin/stytem";
+    @GetMapping("system")
+    public String system() {
+        return "admin/system";
     }
 
     @GetMapping("nav")
     public String nav() {
         return "admin/nav";
+    }
+
+    @GetMapping("workbench")
+    public String workbench() {
+        return "admin/workbench";
     }
 
     @PostMapping("sysinfo")
