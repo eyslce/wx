@@ -226,7 +226,7 @@
             if (index && type && start && end) {
                 var load = layer.load();
                 $.ajax({
-                    url: '/wxapi/dataCube',
+                    url: '/admin/workbench/dataCube',
                     data: {
                         type: type,
                         start: start,
@@ -360,8 +360,7 @@
                                     }]
                                 });
                                 if(!$("#fans").hasClass("load") && result.data.list.length>0){
-                                    $("#fans").text(result.data.list[result.data.list.length-1].cumulate_user);;;;;;
-//                                    numberHandle($("#fans").text(result.data.list[result.data.list.length-1].cumulate_user));
+                                    $("#fans").text(result.data.list[result.data.list.length-1].cumulate_user);
                                     $("#fans").addClass("load");
                                 }
                             } else if (index == 3) {
@@ -380,8 +379,7 @@
                                     });
                                 }
                                 if(!$("#readcount").hasClass("load") && result.data.list.length>0){
-                                    $("#readcount").text(result.data.list[result.data.list.length-1].int_page_read_count);;;;;;
-//                                    numberHandle($("#readcount").text(result.data.list[result.data.list.length-1].int_page_read_count));
+                                    $("#readcount").text(result.data.list[result.data.list.length-1].int_page_read_count);
                                     $("#readcount").addClass("load");
                                 }
                                 chart3.setOption({
@@ -519,36 +517,17 @@
 
         }
 
-//        $(".card-panel-num").each(function () {
-//            var $this = $(this);
-//            var num = parseFloat($this.text()) || 0;
-//            var now = 0, step = parseInt(num / 60);
-//            var i = setInterval(function () {
-//                if (now < num) {
-//                    $this.text(now);
-//                } else {
-//                    $this.text(num);
-//                    clearInterval(i);
-//                }
-//                now += step;
-//            }, 20);
-//        });
 
-        function numberHandle(ele){
-            var $this = ele;
-            var num = parseFloat($this.text()) || 0;
-            debugger;;;;;;
-            var now = 0, step = parseInt(num / 60);
-            var i = setInterval(function () {
-                if (now < num) {
-                    $this.text(now);
-                } else {
-                    $this.text(num);
-                    clearInterval(i);
-                }
-                now += step;
-            }, 20);
-        }
+var table_herder = [ //表头
+                            {type: 'numbers'},
+                            {field: 'title', title: '标题', width: 150, align: 'center',},
+                            {field: 'brief', title: '描述', align: 'center',},
+                            {
+                                field: 'lock', title: '操作', width: 150, align: 'center', templet: function (d) {
+                                return '<a class="font-primary2" href="' + d.url + '" target="_blank">查看</a>';
+                            }, unresize: true, align: 'center'
+                            }
+                        ];
 
         $.ajax({
             url: '/msgnews/list',
@@ -558,21 +537,11 @@
             success: function (result) {
                 if (result.success && result.data) {
                     $("#articals").text(result.page.total);
-//                    numberHandle($("#articals").text(result.page.total));
                     table.render({
                         id: 'list_table',
                         elem: '#list_table',
                         align: "center",
-                        cols: [[ //表头
-                            {type: 'numbers'},
-                            {field: 'title', title: '标题', width: 150, align: 'center',},
-                            {field: 'brief', title: '描述', align: 'center',},
-                            {
-                                field: 'lock', title: '操作', width: 150, align: 'center', templet: function (d) {
-                                return '<a class="font-primary2" href="' + d.url + '" target="_blank">查看</a>';
-                            }, unresize: true, align: 'center'
-                            }
-                        ]],
+                        cols: [table_herder],
                         data:result.data,
                         page: false
                     });
@@ -580,6 +549,7 @@
             }
         });
     })
+
 
 </script>
 

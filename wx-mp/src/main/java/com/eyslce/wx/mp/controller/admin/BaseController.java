@@ -6,6 +6,7 @@ import com.eyslce.wx.commons.result.Page;
 import com.eyslce.wx.commons.util.Constant;
 import com.eyslce.wx.mp.domain.SysUser;
 import com.github.pagehelper.PageInfo;
+import org.apache.http.entity.ContentType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -91,7 +93,7 @@ public class BaseController {
     protected HttpResult error(String msg) {
         return HttpResult.builder()
                 .msg(msg)
-                .success(true)
+                .success(false)
                 .build();
     }
 
@@ -106,7 +108,7 @@ public class BaseController {
     protected <T> HttpResult<T> error(T data, String msg) {
         return HttpResult.<T>builder()
                 .msg(msg)
-                .success(true)
+                .success(false)
                 .data(data)
                 .build();
     }
@@ -116,8 +118,8 @@ public class BaseController {
         logger.error(request.getRequestURI(), e);
         if (isAjaxRequest(request)) {
             HttpResult httpResult = error("程序出现异常");
-            response.setContentType("application/json");
-            response.setCharacterEncoding("utf-8");
+            response.setContentType(ContentType.APPLICATION_JSON.getMimeType());
+            response.setCharacterEncoding(StandardCharsets.UTF_8.name());
             try {
                 JSON.writeJSONString(response.getWriter(), httpResult);
             } catch (IOException e1) {

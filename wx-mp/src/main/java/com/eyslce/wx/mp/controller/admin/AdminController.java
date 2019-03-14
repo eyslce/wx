@@ -50,11 +50,6 @@ public class AdminController extends BaseController {
         return "admin/nav";
     }
 
-    @GetMapping("workbench")
-    public String workbench() {
-        return "admin/workbench";
-    }
-
     @PostMapping("sysinfo")
     @ResponseBody
     public HttpResult getSystemInfo(HttpServletRequest request) {

@@ -41,5 +41,33 @@ public class Constant {
             .add("location_select")
             .build();
 
+    public enum CubeMethod {
+        GET_USER_SUMMARY("getusersummary"),
+        GET_USER_CUMULATE("getusercumulate"),
+        GET_ARTICLE_SUMMARY("getarticlesummary"),
+        GET_ARTICLE_TOTAL("getarticletotal"),
+        GET_ARTICLE_READ("getuserread"),
+        GET_ARTICLE_READHOUR("getuserreadhour"),
+        GET_ARTICLE_SHARE("getusershare"),
+        GET_ARTICLE_SHAREHOUR("getusersharehour");
 
+        private String method;
+
+        CubeMethod(String method) {
+            this.method = method;
+        }
+
+        public String getMethod() {
+            return this.method;
+        }
+
+        public static CubeMethod getEnumMethod(String method) {
+            for (CubeMethod cubeMethod : CubeMethod.values()) {
+                if (cubeMethod.getMethod().equals(method)) {
+                    return cubeMethod;
+                }
+            }
+            return null;
+        }
+    }
 }
