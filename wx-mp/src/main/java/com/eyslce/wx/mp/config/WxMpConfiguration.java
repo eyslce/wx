@@ -39,11 +39,14 @@ public class WxMpConfiguration {
     @ConditionalOnMissingBean
     public WxMpConfigStorage configStorage() {
         WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
-//        Account account = accountService.getSingleAccount();
-//        configStorage.setAppId(account.getAppid());
-//        configStorage.setSecret(account.getAppsecret());
-//        configStorage.setToken(account.getToken());
-//        configStorage.setAesKey("");
+        //默认使用最后一个账号
+        Account account = accountService.getSingleAccount();
+        if (account != null) {
+            configStorage.setAppId(account.getAppid());
+            configStorage.setSecret(account.getAppsecret());
+            configStorage.setToken(account.getToken());
+            configStorage.setAesKey("");
+        }
         return configStorage;
     }
 
