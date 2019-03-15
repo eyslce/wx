@@ -10,9 +10,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * 接收微信消息的api接口
+ */
 @RestController
 @RequestMapping("wx/recive")
-public class WxMpController {
+public class WxMpController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Autowired
@@ -22,6 +25,7 @@ public class WxMpController {
     private WxMpMessageRouter router;
 
     /**
+     * 微信认证消息
      * @param signature
      * @param timestamp
      * @param nonce

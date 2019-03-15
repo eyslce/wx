@@ -1,4 +1,4 @@
-package com.eyslce.wx.mp.controller.admin;
+package com.eyslce.wx.mp.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.eyslce.wx.commons.result.HttpResult;

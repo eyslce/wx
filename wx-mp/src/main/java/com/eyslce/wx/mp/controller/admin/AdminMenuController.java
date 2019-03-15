@@ -2,6 +2,7 @@ package com.eyslce.wx.mp.controller.admin;
 
 import com.eyslce.wx.commons.result.HttpResult;
 import com.eyslce.wx.commons.util.Constant;
+import com.eyslce.wx.mp.controller.BaseController;
 import com.eyslce.wx.mp.domain.AccountMenu;
 import com.eyslce.wx.mp.service.IMenuService;
 import com.eyslce.wx.mp.util.WxMpUtil;

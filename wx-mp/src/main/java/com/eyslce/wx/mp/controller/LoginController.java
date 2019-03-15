@@ -1,7 +1,6 @@
 package com.eyslce.wx.mp.controller;
 
 import com.eyslce.wx.commons.result.HttpResult;
-import com.eyslce.wx.mp.controller.admin.BaseController;
 import com.eyslce.wx.mp.domain.SysUser;
 import com.eyslce.wx.mp.service.IUserService;
 import org.apache.commons.codec.digest.DigestUtils;

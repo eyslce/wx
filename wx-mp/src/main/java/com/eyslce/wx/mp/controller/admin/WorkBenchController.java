@@ -2,6 +2,7 @@ package com.eyslce.wx.mp.controller.admin;
 
 import com.eyslce.wx.commons.result.HttpResult;
 import com.eyslce.wx.commons.util.Constant;
+import com.eyslce.wx.mp.controller.BaseController;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpDataCubeService;
 import me.chanjar.weixin.mp.api.WxMpService;
