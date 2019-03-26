@@ -232,12 +232,12 @@
                                 var seriesData1 = Array();//新增
                                 var seriesData2 = Array();//取消
                                 var seriesData3 = Array();//净增
-                                if (result.data.list.length > 0) {
-                                    $.each(result.data.list, function (i, el) {
-                                        xAxisData.push(el.ref_date);
-                                        seriesData1.push(el.new_user);
-                                        seriesData2.push(el.cancel_user);
-                                        var jz = (el.new_user - el.cancel_user) >= 0 ? (el.new_user - el.cancel_user) : 0;
+                                if (result.data.length > 0) {
+                                    $.each(result.data, function (i, el) {
+                                        xAxisData.push(el.refDate);
+                                        seriesData1.push(el.newUser);
+                                        seriesData2.push(el.cancelUser);
+                                        var jz = (el.newUser - el.cancelUser) >= 0 ? (el.newUser - el.cancelUser) : 0;
                                         seriesData3.push(jz);
                                     });
                                 }
@@ -300,10 +300,10 @@
                             } else if (index == 2) {
                                 var xAxisData = Array();//x轴数据
                                 var seriesData = Array();//新增
-                                if (result.data.list.length > 0) {
-                                    $.each(result.data.list, function (i, el) {
-                                        xAxisData.push(el.ref_date);
-                                        seriesData.push(el.cumulate_user);
+                                if (result.data.length > 0) {
+                                    $.each(result.data, function (i, el) {
+                                        xAxisData.push(el.refDate);
+                                        seriesData.push(el.cumulateUser);
                                     });
                                 }
                                 chart2.setOption({
@@ -350,8 +350,8 @@
                                         animationEasing: 'cubicInOut'
                                     }]
                                 });
-                                if(!$("#fans").hasClass("load") && result.data.list.length>0){
-                                    $("#fans").text(result.data.list[result.data.list.length-1].cumulate_user);
+                                if(!$("#fans").hasClass("load") && result.data.length>0){
+                                    $("#fans").text(result.data[result.data.length-1].cumulateUser);
                                     $("#fans").addClass("load");
                                 }
                             } else if (index == 3) {
@@ -360,17 +360,17 @@
                                 var seriesData2 = Array();//图文页阅读次数
                                 var seriesData3 = Array();//收藏人数
                                 var seriesData4 = Array();//收藏次数
-                                if (result.data.list.length > 0) {
-                                    $.each(result.data.list, function (i, el) {
-                                        xAxisData.push(el.ref_date);
-                                        seriesData1.push(el.int_page_read_user);
-                                        seriesData2.push(el.int_page_read_count);
-                                        seriesData3.push(el.add_to_fav_user);
-                                        seriesData4.push(el.add_to_fav_count);
+                                if (result.data.length > 0) {
+                                    $.each(result.data, function (i, el) {
+                                        xAxisData.push(el.refHour);
+                                        seriesData1.push(el.intPageReadUser);
+                                        seriesData2.push(el.intPageReadCount);
+                                        seriesData3.push(el.addToFavUser);
+                                        seriesData4.push(el.addToFavCount);
                                     });
                                 }
-                                if(!$("#readcount").hasClass("load") && result.data.list.length>0){
-                                    $("#readcount").text(result.data.list[result.data.list.length-1].int_page_read_count);
+                                if(!$("#readcount").hasClass("load") && result.data.length>0){
+                                    $("#readcount").text(result.data.list[result.data.length-1].intPageReadCount);
                                     $("#readcount").addClass("load");
                                 }
                                 chart3.setOption({
@@ -440,11 +440,11 @@
                                 var xAxisData = Array();//x轴数据
                                 var seriesData1 = Array();//分享人数
                                 var seriesData2 = Array();//分享次数
-                                if (result.data.list.length > 0) {
-                                    $.each(result.data.list, function (i, el) {
-                                        xAxisData.push(el.ref_date);
-                                        seriesData1.push(el.share_user);
-                                        seriesData2.push(el.share_count);
+                                if (result.data.length > 0) {
+                                    $.each(result.data, function (i, el) {
+                                        xAxisData.push(el.refHour);
+                                        seriesData1.push(el.shareUser);
+                                        seriesData2.push(el.shareCount);
                                     });
                                 }
                                 chart4.setOption({
@@ -503,7 +503,7 @@
                     }
                 })
             } else {
-                //layer.msg("时间区间数据为空！！！");
+                layer.msg("时间区间数据为空！！！");
             }
 
         }
