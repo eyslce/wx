@@ -35,6 +35,7 @@ public class AccountMenu  {
 	@JsonFormat(pattern = "yyyy-MM-dd HH:mm", timezone = "GMT+8")
 	@DateTimeFormat(pattern = "yyyy-MM-dd HH:mm", iso = DateTimeFormat.ISO.DATE_TIME)
 	private Date createTime;//创建时间
+	private String account;
 
 	@Override
 	public String toString() {

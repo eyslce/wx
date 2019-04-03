@@ -97,28 +97,22 @@
                 })
             } else if (layEvent === 'mass') {
                 showDialog({
-                    title: '群发'
-                    , template: '/admin/msg/mass'
-                    , height: 600
-                    , yes: function (index) {
-                        var checkStatus = table.checkStatus('fans'); //test即为基础参数id对应的值
-                        var cdata = checkStatus.data;
-                        if (cdata.length < 2) {
+                    title: '群发',
+                    template: '/admin/fans/chose',
+                    height: 600,
+                    yes:function (index) {
+                        if(GLOBAL.choosed.length<2){
                             layer.msg("至少选择2个粉丝");
                             return false;
                         }
-                        var fans = [];
-                        for (var i = 0; i < cdata.length; i++) {
-                            fans.push(cdata[i].openId);
-                        }
                         $.ajax({
-                            url: '/wxapi/massSendTextByOpenIds',
+                            url: '/admin/fans/massSendTextByOpenIds',
                             data: {
-                                textId: data.id,
-                                openIds: fans.join(",")
+                            	textId:data.id,
+                                openIds: GLOBAL.choosed.join(",")
                             },
                             success: function (result) {
-                                if (result == "1") {
+                                if ( result == "1") {
                                     layer.msg("群发成功");
                                     reloadTable(tableObj);
                                     layer.close(index);
@@ -127,6 +121,9 @@
                                 }
                             }
                         })
+                    },
+                    end:function () {
+                        GLOBAL.choosed=[];
                     }
                 });
             }

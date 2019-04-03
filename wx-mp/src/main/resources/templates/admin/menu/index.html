@@ -126,7 +126,7 @@
 
         function getWxMenuData() {
             $.ajax({
-                url: "/accountmenu/list",
+                url: "/admin/menu/list",
                 success: function (result) {
                     if (result.success) {
                         menu = result.data && result.data.button ? result.data.button : [];
@@ -434,7 +434,7 @@
             $("#menu-container").on('click', "#menuSave", function () {
                 var menus = getMenuList();
                 $.ajax({
-                    url: '/accountmenu/save',
+                    url: '/admin/menu/save',
                     data: {"menus": JSON.stringify(menus)},
                     success: function (result) {
                         if (result.success) {
@@ -447,7 +447,7 @@
             });
             $("#menu-container").on('click', "#menuSyn", function () {
                 $.ajax({
-                    url: '/wxapi/doPublishMenu',
+                    url: '/admin/menu/publish',
                     data: {},
                     success: function (result) {
                         if (result.success) {
@@ -467,7 +467,7 @@
             $("#select-resources").click(function (e) {
                 showDialog({
                     title: '选择资源',
-                    template: 'msg',
+                    template: '/admin/menu/resources',
                     height: 600,
                     htmlData: {},
                     btn: 0,

@@ -32,11 +32,6 @@ public class MsgController extends BaseController {
         return "admin/msg/edit";
     }
 
-    @RequestMapping("mass")
-    public String mass() {
-        return "admin/msg/mass";
-    }
-
     @ResponseBody
     @RequestMapping(value = "list")
     public HttpResult list(MsgText msgText) {
