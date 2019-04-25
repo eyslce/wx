@@ -12,6 +12,7 @@ import com.github.pagehelper.PageInfo;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpUserList;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -68,21 +69,30 @@ public class FansController extends BaseController {
     @ResponseBody
     public HttpResult syncAccountFansList() throws WxErrorException {
         //获取最后openID
+        //一次最多同步一万用户，后续处理这里TODO
         String nextOpenid = null;
-        AccountFans lastFans = fansDao.getLastOpenId();
-        if (null != lastFans) {
-            nextOpenid = lastFans.getOpenId();
-        }
         WxMpUserList wxUserList = wxMpService.getUserService().userList(nextOpenid);
+
         //获取每个用户的详细信息
         List<AccountFans> fansList = new ArrayList<AccountFans>();
         List<String> openIds = wxUserList.getOpenids();
+        if (CollectionUtils.isEmpty(openIds)) {
+            return success();
+        }
         for (String openId : openIds) {
             AccountFans fans = wxMpUtil.getFansInfo(openId);
             if (fans == null) {
                 continue;
             }
-            fansList.add(fans);
+            AccountFans oldFans = fansDao.getByOpenId(fans.getOpenId());
+            if (oldFans != null) {
+                fansDao.update(fans);
+            } else {
+                fansList.add(fans);
+            }
+        }
+        if (CollectionUtils.isEmpty(fansList)) {
+            return success();
         }
         fansDao.addList(fansList);
         return success();

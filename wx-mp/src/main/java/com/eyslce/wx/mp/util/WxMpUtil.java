@@ -3,6 +3,7 @@ package com.eyslce.wx.mp.util;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.eyslce.wx.commons.util.Constant;
+import com.eyslce.wx.commons.util.DateTimeUtils;
 import com.eyslce.wx.mp.dao.MsgNewsDao;
 import com.eyslce.wx.mp.dao.MsgTextDao;
 import com.eyslce.wx.mp.domain.*;
@@ -11,14 +12,17 @@ import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 @Component
 public class WxMpUtil {
-
+    Logger logger = LoggerFactory.getLogger(WxMpUtil.class);
     @Autowired
     private WxMpService wxMpService;
     @Autowired
@@ -59,18 +63,20 @@ public class WxMpUtil {
         fans.setOpenId(openId);
         if (user.getSubscribe()) {
             fans.setSubscribeStatus(1);
-            fans.setSubscribeTime(new Date(user.getSubscribeTime()));
+            fans.setSubscribeTime(DateTimeUtils.formatSecondUnitToDate(user.getSubscribeTime()));
         } else {
             fans.setSubscribeStatus(0);
         }
-        fans.setNicknameStr(user.getNickname());
+        fans.setNickname(user.getNickname().getBytes(StandardCharsets.UTF_8));
         fans.setGender(user.getSexId());
         fans.setLanguage(user.getLanguage());
         fans.setCountry(user.getCountry());
+        fans.setProvince(user.getProvince());
         fans.setCity(user.getCity());
         fans.setHeadimgurl(user.getHeadImgUrl());
         fans.setRemark(user.getRemark());
         fans.setStatus(1);
+        fans.setCreateTime(new Date());
         return fans;
     }
 

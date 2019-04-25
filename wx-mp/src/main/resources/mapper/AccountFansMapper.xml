@@ -7,7 +7,7 @@
         <result column="open_id" property="openId"/>
         <result column="subscribe_status" property="subscribeStatus"/>
         <result column="subscribe_time" property="subscribeTime"/>
-        <result column="nick_name" property="nicknameStr"/>
+        <result column="nick_name" property="nickname"/>
         <result column="gender" property="gender"/>
         <result column="language" property="language"/>
         <result column="country" property="country"/>
@@ -76,7 +76,7 @@
 
     <update id="update" parameterType="com.eyslce.wx.mp.domain.AccountFans" flushCache="true">
         UPDATE wxcms_account_fans SET NICK_NAME = #{nickname},GENDER = #{gender},COUNTRY = #{country},PROVINCE =
-        #{province},CITY = #{city},WX_ID=#{wxid} WHERE ID = #{id}
+        #{province},CITY = #{city},WX_ID=#{wxid} WHERE OPEN_ID = #{openId}
     </update>
 
     <delete id="delete" parameterType="com.eyslce.wx.mp.domain.AccountFans">

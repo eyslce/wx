@@ -4,11 +4,14 @@ import com.eyslce.wx.mp.controller.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+/**
+ * 用户标签管理
+ */
 @Controller
-@RequestMapping("admin/document")
-public class DocumentController extends BaseController {
+@RequestMapping("admin/tags")
+public class TagsController extends BaseController {
     @RequestMapping("index")
     public String index() {
-        return "admin/document/index";
+        return "admin/tags/index";
     }
 }
