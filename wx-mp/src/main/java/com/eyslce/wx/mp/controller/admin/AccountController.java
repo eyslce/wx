@@ -2,6 +2,7 @@ package com.eyslce.wx.mp.controller.admin;
 
 import com.eyslce.wx.commons.result.HttpResult;
 import com.eyslce.wx.commons.util.Constant;
+import com.eyslce.wx.commons.util.StringUtils;
 import com.eyslce.wx.mp.controller.BaseController;
 import com.eyslce.wx.mp.domain.Account;
 import com.eyslce.wx.mp.service.IAccountService;
@@ -27,9 +28,9 @@ public class AccountController extends BaseController {
         return "admin/account/add";
     }
 
-    @RequestMapping("url")
-    public String url() {
-        return "admin/account/url";
+    @RequestMapping("index")
+    public String index() {
+        return "admin/account/index";
     }
 
     @RequestMapping("form")
@@ -40,10 +41,10 @@ public class AccountController extends BaseController {
     @RequestMapping("getUrl")
     @ResponseBody
     public HttpResult getUrl(Account account) {
-        String url = "/wxapi/" + account.getAccount() + "/message.html";
+        String url = "/wxapi/" + account.getAccount() + "/message";
         if (account.getId() == null) {//新增
             account.setUrl(url);
-            account.setToken(UUID.randomUUID().toString().replace("-", ""));
+            account.setToken(StringUtils.token());
             account.setCreatetime(new Date());
             accountService.add(account);
         } else {//更新

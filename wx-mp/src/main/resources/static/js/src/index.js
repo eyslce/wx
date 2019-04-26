@@ -104,30 +104,6 @@ function getCountStatus(id) {
     });
 }
 
-//弹出增加公众号
-function openaddCount() {
-    layer.open({
-        type: 1,
-        title: '增加公众号',
-        content: $("#add_count"),
-        area: ['400px', '300px'],
-        shade: 0.6, //遮罩透明度
-        anim: 1, //0-6的动画形式，-1不开启
-        btn: ['确认修改', '取消'],
-        yes: function () {
-            // TODO:再加逻辑
-            var name = $("#add_count input[name=name]");//名称
-            var AppID = $("#add_count input[name=AppID]");
-            var ID = $("#add_count input[name=ID]");
-        },
-        end: function () {
-            $('#nowpassword').val('');
-            $('#password').val('');
-            $('#repassword').val('');
-        }
-    })
-}
-
 //切换至公众号
 function changeCount(id) {
     getCountStatus(id);

@@ -13,11 +13,7 @@ public class WxConfigurationProperties {
     private String tulingUserId;
 
     @Data
-    public static class mp{
-        /**
-         * 设置微信公众号的EncodingAESKey
-         */
-        private String aesKey;
+    public static class mp {
         private String deliveryApi;
         private String deliveryTypeApi;
         private String idApi;

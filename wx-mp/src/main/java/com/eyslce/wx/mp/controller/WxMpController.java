@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * 接收微信消息的api接口
  */
 @RestController
-@RequestMapping("wx/recive")
+@RequestMapping("wxapi")
 public class WxMpController extends BaseController {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -32,7 +32,7 @@ public class WxMpController extends BaseController {
      * @param echostr
      * @return
      */
-    @GetMapping(produces = "text/plain;charset=utf-8")
+    @GetMapping(value = "/{account}/message", produces = "text/plain;charset=utf-8")
     public String authGet(
             @RequestParam(name = "signature", required = false) String signature,
             @RequestParam(name = "timestamp", required = false) String timestamp,
@@ -53,7 +53,7 @@ public class WxMpController extends BaseController {
         return "非法请求";
     }
 
-    @PostMapping(produces = "application/xml; charset=UTF-8")
+    @PostMapping(value = "/{account}/message", produces = "application/xml; charset=UTF-8")
     public String post(@RequestBody String requestBody,
                        @RequestParam("signature") String signature,
                        @RequestParam("timestamp") String timestamp,
