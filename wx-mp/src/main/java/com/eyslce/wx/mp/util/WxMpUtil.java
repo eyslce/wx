@@ -7,7 +7,10 @@ import com.eyslce.wx.commons.util.DateTimeUtils;
 import com.eyslce.wx.mp.dao.MsgNewsDao;
 import com.eyslce.wx.mp.dao.MsgTextDao;
 import com.eyslce.wx.mp.domain.*;
+import com.eyslce.wx.mp.service.IAccountService;
 import me.chanjar.weixin.common.exception.WxErrorException;
+import me.chanjar.weixin.mp.api.WxMpConfigStorage;
+import me.chanjar.weixin.mp.api.WxMpInMemoryConfigStorage;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
 import org.apache.commons.collections4.CollectionUtils;
@@ -29,8 +32,10 @@ public class WxMpUtil {
     private MsgTextDao msgTextDao;
     @Autowired
     private MsgNewsDao msgNewsDao;
+    @Autowired
+    private IAccountService accountService;
 
-    public static JSONObject getAccount(List<Account> list, String curentName) {
+    public JSONObject getAccount(List<Account> list, String curentName) {
         JSONObject obj = new JSONObject();
         obj.put("correct", curentName);
         JSONArray arr = new JSONArray();
@@ -171,5 +176,47 @@ public class WxMpUtil {
             }
         }
         return arr;
+    }
+
+    /**
+     * 切换当前公众账号
+     *
+     * @param account
+     */
+    public void changeCurrentAccount(Account account) {
+        WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
+        configStorage.setAppId(account.getAppid());
+        configStorage.setSecret(account.getAppsecret());
+        configStorage.setToken(account.getToken());
+        configStorage.setAesKey(account.getAeskey());
+        this.wxMpService.setWxMpConfigStorage(configStorage);
+    }
+
+    /**
+     * 根据公众账号获取配置信息
+     *
+     * @param accountName
+     * @return
+     */
+    public WxMpConfigStorage getConfigStorageByAccount(String accountName) {
+        Account account = this.accountService.getByAccount(accountName);
+        WxMpInMemoryConfigStorage configStorage = new WxMpInMemoryConfigStorage();
+        configStorage.setAppId(account.getAppid());
+        configStorage.setSecret(account.getAppsecret());
+        configStorage.setToken(account.getToken());
+        configStorage.setAesKey(account.getAeskey());
+        return configStorage;
+    }
+
+    /**
+     * 获取当前公众账号
+     *
+     * @return
+     */
+    public Account getCurrentAccount() {
+        WxMpConfigStorage wxMpConfigStorage = this.wxMpService.getWxMpConfigStorage();
+        String appId = wxMpConfigStorage.getAppId();
+        Account account = this.accountService.getByAppId(appId);
+        return account;
     }
 }

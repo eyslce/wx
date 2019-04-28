@@ -30,21 +30,28 @@
                     </div>
                 </div>
                 <div class="layui-form-item">
+                    <label class="layui-form-label">AesKey</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="aeskey" placeholder="无须输入，自动生成" class="layui-input" readonly>
+                    </div>
+                </div>
+                <div class="layui-form-item">
                     <label class="layui-form-label"><i>*</i>AppID</label>
                     <div class="layui-input-block">
-                        <input type="text" name="appid" placeholder="AppID" class="layui-input">
+                        <input type="text" name="appid" lay-verify="required" placeholder="AppID" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i>*</i>AppSecret</label>
                     <div class="layui-input-block">
-                        <input type="text" name="appsecret" placeholder="AppSecret" class="layui-input">
+                        <input type="text" name="appsecret" lay-verify="required" placeholder="AppSecret"
+                               class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><i>*</i>消息条数</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="msgcount" value="5"  class="layui-input" readonly>
+                        <input type="text" name="msgcount" lay-verify="required" value="5" class="layui-input">
                     </div>
                     <span class="tips">(回复图文消息条数)</span>
                 </div>
@@ -72,7 +79,7 @@
                 success: function (result) {
                     if (result.success) {
                         getCountStatus(result.data.id);
-                        jump("/admin/account/url");
+                        jump("/admin/account/index");
                         layer.msg("保存成功");
                     } else {
                         layer.msg("保存失败");

@@ -7,6 +7,8 @@ import java.util.List;
 public interface IAccountService {
     Account getByAccount(String account);
 
+    Account getByAppId(String appId);
+
     Account getSingleAccount();
 
     List<Account> listForPage(Account account);

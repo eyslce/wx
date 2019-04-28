@@ -49,7 +49,7 @@ public class WxMpConfiguration {
             configStorage.setAppId(account.getAppid());
             configStorage.setSecret(account.getAppsecret());
             configStorage.setToken(account.getToken());
-            configStorage.setAesKey("");
+            configStorage.setAesKey(account.getAeskey());
         }
         return configStorage;
     }

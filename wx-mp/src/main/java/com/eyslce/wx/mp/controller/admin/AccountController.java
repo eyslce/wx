@@ -22,6 +22,8 @@ import java.util.*;
 public class AccountController extends BaseController {
     @Autowired
     private IAccountService accountService;
+    @Autowired
+    private WxMpUtil wxMpUtil;
 
     @RequestMapping("add")
     public String add() {
@@ -45,6 +47,7 @@ public class AccountController extends BaseController {
         if (account.getId() == null) {//新增
             account.setUrl(url);
             account.setToken(StringUtils.token());
+            account.setAeskey(StringUtils.wxAesKey());
             account.setCreatetime(new Date());
             accountService.add(account);
         } else {//更新
@@ -63,10 +66,11 @@ public class AccountController extends BaseController {
     @RequestMapping(value = "/urltoken")
     @ResponseBody
     public HttpResult urltoken() {
-        //目前只支持单个
-        Account account = accountService.getSingleAccount();
+        Account account = wxMpUtil.getCurrentAccount();
         List<String> msgCountList = new ArrayList<String>();
-        for (int i = 1; i < 8; i++) {
+        int len = account.getMsgcount() + 5;
+        int start = account.getMsgcount() - 5 > 0 ? account.getMsgcount() - 5 : 1;
+        for (int i = start; i < len; i++) {
             msgCountList.add(String.valueOf(i));
         }
         Map<String, Object> data = new HashMap<String, Object>();
@@ -85,9 +89,10 @@ public class AccountController extends BaseController {
         Account account;
         if (null != searchEntity && null != searchEntity.getId()) {
             account = accountService.getById(searchEntity.getId());
+            wxMpUtil.changeCurrentAccount(account);
         } else {
-            account = accountService.getSingleAccount();
+            account = wxMpUtil.getCurrentAccount();
         }
-        return success(WxMpUtil.getAccount(list, account.getName()), Constant.SUCCESS_MSG);
+        return success(wxMpUtil.getAccount(list, account.getName()), Constant.SUCCESS_MSG);
     }
 }

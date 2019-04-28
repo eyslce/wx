@@ -11,11 +11,8 @@ public class MpAccount {
     private String appsecret;//appsecret
     private String url;//验证时用的url
     private String token;//token
+    private String aeskey;
     private Integer msgcount;//自动回复消息条数;默认是5条
 
-    public Integer getMsgcount() {
-        if (msgcount == null)
-            msgcount = 5;//默认5条
-        return msgcount;
-    }
+
 }

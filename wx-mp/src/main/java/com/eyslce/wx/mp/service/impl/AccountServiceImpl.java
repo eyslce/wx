@@ -21,6 +21,11 @@ public class AccountServiceImpl implements IAccountService {
     }
 
     @Override
+    public Account getByAppId(String appId) {
+        return accountDao.getByAppId(appId);
+    }
+
+    @Override
     public Account getSingleAccount() {
         return accountDao.getSingleAccount();
     }

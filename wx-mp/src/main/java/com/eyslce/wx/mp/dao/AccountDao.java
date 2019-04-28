@@ -15,6 +15,8 @@ public interface AccountDao {
 
 	Account getByAccount(String account);
 
+	Account getByAppId(String appId);
+
 	Account getSingleAccount();
 
 	List<Account> listForPage(Account searchEntity);
