@@ -33,61 +33,52 @@
             $this.addClass("btn-primary").removeClass("layui-btn-primary")
                 .siblings(".btn-primary").addClass("layui-btn-primary").removeClass("btn-primary");
         });
-        
-//        form.on('select(msgType)', function (data) {
-//            console.log("change");
-//            $("#send_msg_content").html(template.render('<table id="send_msg" class="layui-hide" lay-filter="send_msg"></table>', {}));
-//            msgType = data.value;
-//            if (data.value == "1") {
-//                rendertextList();
-//            } else {
-//                renderdocList();
-//            }
-//        });
 
         function rendertextList() {
+            var table_header = [ //表头
+                {type: 'numbers'},
+                {field: 'content', title: '内容', align: 'center'},
+                {
+                    field: 'msgtype', title: '类型', width: 200, align: 'center', templet: function (d) {
+                        return "文本消息";
+                    }
+                },
+                {
+                    field: 'lock', title: '类型', width: 200, align: 'center', templet: function (d) {
+                        return '<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" lay-event="send">发送消息</button>';
+                    }
+                }
+            ];
             table.render({
                 id: 'send_msg',
                 elem: '#send_msg',
-                url: '/msgtext/list',
+                url: '/admin/msg/list',
                 align: "center",
-                cols: [[ //表头
-                    {type: 'numbers'},
-                    {field: 'content', title: '内容', align: 'center',},
-                    {
-                        field: 'msgtype', title: '类型', width: 200, align: 'center', templet: function (d) {
-                        return "文本消息";
-                    }
-                    },
-                    {
-                        field: 'lock', title: '类型', width: 200, align: 'center', templet: function (d) {
-                        return '<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" lay-event="send">发送消息</button>';
-                    }
-                    },
-                ]],
+                cols: [table_header]
             });
         }
 
         function renderdocList() {
+            var table_header = [ //表头
+                {type: 'numbers'},
+                {field: 'title', title: '标题', align: 'center'},
+                {
+                    field: 'msgtype', title: '类型', width: 200, align: 'center', templet: function (d) {
+                        return "图文消息";
+                    }
+                },
+                {
+                    field: 'lock', title: '类型', width: 200, align: 'center', templet: function (d) {
+                        return '<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" lay-event="send">发送消息</button>';
+                    }
+                }
+            ];
             table.render({
                 id: 'send_msg',
                 elem: '#send_msg',
                 url: '/msgnews/list',
                 align: "center",
-                cols: [[ //表头
-                    {type: 'numbers'},
-                    {field: 'title', title: '标题', align: 'center',},
-                    {
-                        field: 'msgtype', title: '类型', width: 200, align: 'center', templet: function (d) {
-                        return "图文消息";
-                    }
-                    },
-                    {
-                        field: 'lock', title: '类型', width: 200, align: 'center', templet: function (d) {
-                        return '<button class="layui-btn layui-btn-sm layui-btn-radius layui-btn-danger" lay-event="send">发送消息</button>';
-                    }
-                    },
-                ]],
+                cols: [table_header]
             });
         }
 
@@ -98,10 +89,10 @@
             if (layEvent == 'send') {
                 var url;
                 if (msgType == "0") {
-                    url = '/wxapi/sendTextMsgByOpenId';
+                    url = '/admin/send/text';
                     sendData = {
-                    	openid: $("#openId").val(),
-                        msgId: data.id
+                        openIds: $("#openId").val(),
+                        textId: data.id
                     };
                 } else {
                     url = '/wxapi/sendNewsByOpenId';

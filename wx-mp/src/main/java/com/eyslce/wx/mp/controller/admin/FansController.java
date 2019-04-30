@@ -15,7 +15,6 @@ import me.chanjar.weixin.mp.bean.result.WxMpUserList;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -107,19 +106,5 @@ public class FansController extends BaseController {
         }
         fansDao.update(fans);
         return success(fans, Constant.SUCCESS_MSG);
-    }
-
-    /**
-     * 给粉丝发送文本消息
-     *
-     * @param msgId
-     * @param openid
-     * @return
-     */
-    @PostMapping("massSendTextByOpenIds")
-    @ResponseBody
-    public HttpResult massSendTextByOpenIds(String msgId, String openid) {
-        //todo 发送消息
-        return success();
     }
 }

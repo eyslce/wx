@@ -106,13 +106,13 @@
                             return false;
                         }
                         $.ajax({
-                            url: '/admin/fans/massSendTextByOpenIds',
+                            url: '/admin/send/text',
                             data: {
                             	textId:data.id,
                                 openIds: GLOBAL.choosed.join(",")
                             },
                             success: function (result) {
-                                if ( result == "1") {
+                                if (result.success == true) {
                                     layer.msg("群发成功");
                                     reloadTable(tableObj);
                                     layer.close(index);
