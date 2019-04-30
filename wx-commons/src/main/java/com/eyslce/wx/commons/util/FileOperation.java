@@ -63,19 +63,4 @@ public class FileOperation {
         //获取图片地址
         return object.getString("url");
     }
-
-    /**
-     * 获取文件扩展名
-     *
-     * @param fileName
-     * @return
-     */
-    public static String getFileExt(String fileName) {
-        int index = fileName.lastIndexOf(".");
-        if (index == -1) {
-            return "";
-        }
-        String ext = fileName.substring(index + 1, fileName.length() - 1);
-        return ext;
-    }
 }

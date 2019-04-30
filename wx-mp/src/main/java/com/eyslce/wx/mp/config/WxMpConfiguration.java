@@ -121,7 +121,8 @@ public class WxMpConfiguration {
                 .event(WxConsts.EventType.SCAN).handler(this.scanHandler).end();
 
         // 默认
-        newRouter.rule().async(false).handler(this.menuHandler).end();
+        newRouter.rule().async(false).handler(this.msgHandler).end();
+
 
         return newRouter;
     }
