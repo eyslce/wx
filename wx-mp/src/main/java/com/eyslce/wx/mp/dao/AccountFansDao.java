@@ -34,6 +34,5 @@ public interface AccountFansDao {
 
 	void deleteByOpenId(String openId);
 
-
-	List<AccountFans> getAccountFansList(AccountFans searchEntity);
+	List<AccountFans> getFansByOpenIdList(List<AccountFans> openIds);
 }

@@ -3,7 +3,6 @@ package com.eyslce.wx.mp.controller.admin;
 import com.eyslce.wx.commons.result.HttpResult;
 import com.eyslce.wx.commons.util.Constant;
 import com.eyslce.wx.mp.controller.BaseController;
-import com.eyslce.wx.mp.dao.AccountFansDao;
 import com.eyslce.wx.mp.domain.AccountFans;
 import com.eyslce.wx.mp.query.FansQuery;
 import com.eyslce.wx.mp.service.IFansService;
@@ -31,8 +30,6 @@ public class FansController extends BaseController {
     private WxMpService wxMpService;
     @Autowired
     private IFansService fansService;
-    @Autowired
-    private AccountFansDao fansDao;
     @Autowired
     private WxMpUtil wxMpUtil;
 
@@ -83,9 +80,9 @@ public class FansController extends BaseController {
             if (fans == null) {
                 continue;
             }
-            AccountFans oldFans = fansDao.getByOpenId(fans.getOpenId());
+            AccountFans oldFans = fansService.getByOpenId(fans.getOpenId());
             if (oldFans != null) {
-                fansDao.update(fans);
+                fansService.update(fans);
             } else {
                 fansList.add(fans);
             }
@@ -93,7 +90,7 @@ public class FansController extends BaseController {
         if (CollectionUtils.isEmpty(fansList)) {
             return success();
         }
-        fansDao.addList(fansList);
+        fansService.addList(fansList);
         return success();
     }
 
@@ -104,7 +101,7 @@ public class FansController extends BaseController {
         if (fans == null) {
             return error("没有找到该用户信息");
         }
-        fansDao.update(fans);
+        fansService.update(fans);
         return success(fans, Constant.SUCCESS_MSG);
     }
 }

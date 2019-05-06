@@ -23,4 +23,61 @@ public class FansServiceImpl implements IFansService {
         PageInfo<AccountFans> pageInfo = new PageInfo(list);
         return pageInfo;
     }
+
+    @Override
+    public AccountFans getById(String id) {
+        return accountFansDao.getById(id);
+    }
+
+    @Override
+    public AccountFans getByOpenId(String openId) {
+        return accountFansDao.getByOpenId(openId);
+    }
+
+    @Override
+    public Integer getTotalItemsCount(AccountFans searchEntity) {
+        return accountFansDao.getTotalItemsCount(searchEntity);
+    }
+
+    @Override
+    public List<AccountFans> getFansListByPage(FansQuery query) {
+        return accountFansDao.getFansListByPage(query);
+    }
+
+    @Override
+    public AccountFans getLastOpenId() {
+        return accountFansDao.getLastOpenId();
+    }
+
+    @Override
+    public void add(AccountFans entity) {
+        accountFansDao.add(entity);
+    }
+
+    @Override
+    public void addList(List<AccountFans> list) {
+        accountFansDao.addList(list);
+    }
+
+    @Override
+    public void update(AccountFans entity) {
+        accountFansDao.update(entity);
+    }
+
+    @Override
+    public void delete(AccountFans entity) {
+        accountFansDao.delete(entity);
+    }
+
+    @Override
+    public void deleteByOpenId(String openId) {
+        accountFansDao.deleteByOpenId(openId);
+    }
+
+    @Override
+    public List<AccountFans> getFansByOpenIdList(List<AccountFans> openIds) {
+        return accountFansDao.getFansByOpenIdList(openIds);
+    }
+
+
 }

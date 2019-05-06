@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 
 public class Constant {
     public static final String SUCCESS_MSG = "操作成功";
+    public static final String ERROR_MSG = "操作失败，请稍后再试";
 
     public static final String SYSTEM_NAME = "wx";
     public static final String SYSTEM_VERSION = "1.0.0";

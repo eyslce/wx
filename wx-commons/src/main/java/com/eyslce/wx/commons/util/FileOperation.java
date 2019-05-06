@@ -18,7 +18,7 @@ import java.net.URL;
 public class FileOperation {
 
     private final static Logger logger = LoggerFactory.getLogger(FileOperation.class);
-    private final static String bingUrl = "https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc=1501558320736&pid=hp";
+    private final static String BING_URL = "https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1&nc=1501558320736&pid=hp";
     private final static String BING_BASE_URL = "http://cn.bing.com";
     public final static String BACKGROUND_IMAGE_NAME = "login-bg.jpg";
 
@@ -53,7 +53,7 @@ public class FileOperation {
      * @throws Exception
      */
     public static String getBingImgUrl() throws Exception {
-        String response = HttpClient.get(bingUrl);
+        String response = HttpClient.get(BING_URL);
         //解析为json对象
         JSONObject jsonObject = JSON.parseObject(response);
         //获取图片数组

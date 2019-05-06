@@ -42,6 +42,14 @@
         ORDER BY create_time desc
     </select>
 
+    <select id="getFansByOpenIdList" resultMap="result" parameterType="list">
+        SELECT * FROM wxcms_account_fans WHERE OPEN_ID IN
+        <foreach collection="list" item="item" open="(" separator="," close=")">
+            #{item.openId}
+        </foreach>
+        ORDER BY CREATE_TIME DESC
+    </select>
+
     <select id="getLastOpenId" resultMap="result">
         SELECT * FROM wxcms_account_fans
         ORDER BY ID DESC
