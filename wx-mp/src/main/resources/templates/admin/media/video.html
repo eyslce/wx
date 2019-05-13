@@ -60,9 +60,9 @@
         var tableObj = table.render({
             id: 'list_table',
             elem: '#list_table',
-            url: '/mediaFile/list?mediaType=video',
+            url: '/admin/media/list?mediaType=video',
             align: "center",
-            cols: [cols],
+            cols: [cols]
         });
 
         // 添加
@@ -97,7 +97,7 @@
             } else if (layEvent === 'del') {
                 showConfirm("确认删除？", function () {
                     $.ajax({
-                        url: '/mediaFile/delMediaFile',
+                        url: '/admin/media/delMediaFile',
                         data: {mediaId: data.mediaId},
                         success: function (result) {
                             if (result.success) {

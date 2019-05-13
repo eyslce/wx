@@ -8,6 +8,7 @@ import com.eyslce.wx.mp.domain.ImgResource;
 import com.eyslce.wx.mp.domain.MediaFiles;
 import com.eyslce.wx.mp.service.IImageService;
 import com.eyslce.wx.mp.service.IMediaFileService;
+import com.github.pagehelper.PageInfo;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -63,6 +64,13 @@ public class MediaController extends BaseController {
         return "admin/media/audio";
     }
 
+    @RequestMapping("list")
+    @ResponseBody
+    public HttpResult list(MediaFiles mediaFiles) {
+        PageInfo<MediaFiles> pageInfo = mediaFileService.getMediaListByPage(mediaFiles);
+        return success(pageInfo);
+    }
+
     @PostMapping("addMateria")
     @ResponseBody
     public HttpResult addMateria(MultipartFile file, String type) throws IOException, WxErrorException {
@@ -115,9 +123,26 @@ public class MediaController extends BaseController {
         return success();
     }
 
+    @ResponseBody
+    @RequestMapping("delMediaFile")
+    public HttpResult delMediaFile(String mediaId) throws WxErrorException {
+        wxMpService.getMaterialService().materialDelete(mediaId);
+        mediaFileService.deleteByMediaId(mediaId);
+        return success();
+    }
+
     @PostMapping("image/list")
     @ResponseBody
     public HttpResult imageListPage() {
+        return success();
+    }
+
+    @ResponseBody
+    @RequestMapping("image/del")
+    public HttpResult delMediaImg(String id) throws Exception {
+        ImgResource img = imageService.getImg(id);
+        wxMpService.getMaterialService().materialDelete(img.getMediaId());
+        imageService.delImg(id);
         return success();
     }
 }

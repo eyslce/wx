@@ -1,16 +1,16 @@
 
 package com.eyslce.wx.mp.domain;
 
+import com.eyslce.wx.mp.query.PageQuery;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
-
 
 import java.util.Date;
 
 
 @Data
-public class MediaFiles {
+public class MediaFiles extends PageQuery {
 
 	private Long id;
    	private String mediaType;//素材类型

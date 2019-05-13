@@ -72,13 +72,12 @@
             tableObj = table.render({
                 id: 'list_table',
                 elem: '#list_table',
-                url: '/mediaFile/list?mediaType=voice',
+                url: '/admin/media/list?mediaType=voice',
                 align: "center",
                 done: function () {
-                    console.log("done");
                     audiojs.createAll();
                 },
-                cols: [cols],
+                cols: [cols]
             });
         });
 
@@ -86,7 +85,7 @@
         // 添加
         var uploader = upload.render({
             elem: '#video_add',
-            url: '/mediaFile/addMateria',
+            url: '/admin/media/addMateria',
             size: 2048,
             data:{type:"voice"},
             accept:"audio",
@@ -124,7 +123,7 @@
             } else if (layEvent === 'del') {
                 showConfirm("确认删除？", function () {
                     $.ajax({
-                        url: '/mediaFile/delMediaFile',
+                        url: '/admin/media/delMediaFile',
                         data: {mediaId: data.mediaId},
                         success: function (result) {
                             if (result.success) {
