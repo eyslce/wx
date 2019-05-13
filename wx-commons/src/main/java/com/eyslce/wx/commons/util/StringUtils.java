@@ -8,6 +8,10 @@ public class StringUtils {
     private static final String STRING_POOL = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
 
     public static String token() {
+        return uuid();
+    }
+
+    public static String uuid() {
         return UUID.randomUUID().toString().replace("-", "");
     }
 

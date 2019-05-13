@@ -2,13 +2,14 @@
 package com.eyslce.wx.mp.domain;
 
 
+import lombok.Builder;
 import lombok.Data;
-
 
 import java.util.Date;
 
 
 @Data
+@Builder
 public class ImgResource {
     private String  id;
 	/**
@@ -44,7 +45,7 @@ public class ImgResource {
 	/**
 	 * 图片大小byte
 	 */
-	private Integer  size;
+	private Long size;
 	
 	/**
 	 * 创建时间

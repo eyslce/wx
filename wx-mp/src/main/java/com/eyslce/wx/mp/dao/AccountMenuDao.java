@@ -11,19 +11,19 @@ import java.util.List;
 @Mapper
 public interface AccountMenuDao {
 
-	public AccountMenu getById(String id);
+	AccountMenu getById(String id);
 
-	public List<AccountMenu> listForPage(AccountMenu searchEntity);
+	List<AccountMenu> listForPage(AccountMenu searchEntity);
 
-	public List<AccountMenu> listParentMenu(AccountMenu entity);
-	
-	public List<AccountMenu> listWxMenus(AccountMenu entity);
-	
-	public void add(AccountMenu entity);
+	List<AccountMenu> listParentMenu(AccountMenu entity);
 
-	public void update(AccountMenu entity);
+	List<AccountMenu> listWxMenus(AccountMenu entity);
 
-	public void delete(AccountMenu entity);
+	void add(AccountMenu entity);
+
+	void update(AccountMenu entity);
+
+	void delete(AccountMenu entity);
 
 
 

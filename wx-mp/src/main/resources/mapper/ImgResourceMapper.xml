@@ -3,6 +3,23 @@
 
 <mapper namespace="com.eyslce.wx.mp.dao.ImgResourceDao">
 
+    <select id="getImgListByPage" parameterType="com.eyslce.wx.mp.domain.ImgResource"
+            resultType="com.eyslce.wx.mp.domain.ImgResource">
+        SELECT * FROM wxcms_img_resource t
+        <where>
+            <if test="account != null">
+                t.account = #{account}
+            </if>
+            <if test="start!=null and start!='' and end!=null and end!=''">
+                and (t.create_time
+                between
+                str_to_date(#{start}, '%Y-%m-%d')
+                and
+                str_to_date(#{end}, '%Y-%m-%d'))
+            </if>
+        </where>
+        ORDER BY t.create_time desc
+    </select>
     <select id="getImgById" parameterType="java.lang.String"
             resultType="com.eyslce.wx.mp.domain.ImgResource">
         SELECT * FROM wxcms_img_resource WHERE ID = #{id}

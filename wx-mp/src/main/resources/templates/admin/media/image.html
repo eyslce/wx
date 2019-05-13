@@ -47,7 +47,7 @@
 
         var uploader = upload.render({
             elem: '#video_uploader',
-            url: '/mediaFile/addMateria',
+            url: '/admin/media/addMateria',
             size: 2048,
             accept:"images",
             exts: 'bmp|BMP|png|PNG|jpeg|JPEG|jpg|JPG|gif|GIF',
@@ -81,14 +81,14 @@
             }
             data.pageSize=15;
             $.ajax({
-                url: '/managerImg/list',
+                url: '/admin/media/image/list',
                 data: data,
                 success: function (result) {
                     if (result.success && result.page && result.page.total > 0) {
                         //渲染列表
                         renderHtml({
                             targetId: 'image_wrap',
-                            template: "list",
+                            template: "/admin/media/image/list",
                             htmlData: result,
                             callBack: function () {
                                 if (result.page.total > 15) {

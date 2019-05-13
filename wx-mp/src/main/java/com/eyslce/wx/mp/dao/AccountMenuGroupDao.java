@@ -11,34 +11,27 @@ import java.util.List;
 @Mapper
 public interface AccountMenuGroupDao {
 
-	public AccountMenuGroup getById(String id);
+	AccountMenuGroup getById(String id);
 
-	public List<AccountMenuGroup> list(AccountMenuGroup searchEntity);
+	List<AccountMenuGroup> list(AccountMenuGroup searchEntity);
 
-	public Integer getTotalItemsCount(AccountMenuGroup searchEntity);
+	Integer getTotalItemsCount(AccountMenuGroup searchEntity);
 
-	public List<AccountMenuGroup> getGroupListByPage(AccountMenuGroup searchEntity);
+	List<AccountMenuGroup> getGroupListByPage(AccountMenuGroup searchEntity);
 
-	public void add(AccountMenuGroup entity);
+	void add(AccountMenuGroup entity);
 
-	public void update(AccountMenuGroup entity);
-	
-	public void updateMenuGroupDisable();
-	
-	public void updateMenuGroupEnable(String gid);
-	
-	public void deleteAllMenu(AccountMenuGroup entity);
-	
-	public void delete(AccountMenuGroup entity);
+	void update(AccountMenuGroup entity);
 
-	/**
-	 * 删除菜单组
-	 * @param id
-	 */
-	public void deleteGroupById(long id);
-	/**
-	 * 删除菜单组下的菜单
-	 * @param id
-	 */
-	public void deleteMenuByGId(long id);
+	void updateMenuGroupDisable();
+
+	void updateMenuGroupEnable(String gid);
+
+	void deleteAllMenu(AccountMenuGroup entity);
+
+	void delete(AccountMenuGroup entity);
+
+	void deleteGroupById(long id);
+
+	void deleteMenuByGId(long id);
 }

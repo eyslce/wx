@@ -13,11 +13,11 @@ import java.util.Map;
 public interface SysConfigDao {
     List<SysConfig> getConfigList();
 
-    public Map<String, String> getSysConfigToMap();
+    Map<String, String> getSysConfigToMap();
 
-    public String getValue(String key);
+    String getValue(String key);
 
-    public void update(Map<String, String> params, HttpServletRequest request);
+    void update(Map<String, String> params, HttpServletRequest request);
 
-    public String getMysqlVsesion();
+    String getMysqlVsesion();
 }

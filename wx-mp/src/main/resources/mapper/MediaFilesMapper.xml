@@ -3,21 +3,97 @@
 
 <mapper namespace="com.eyslce.wx.mp.dao.MediaFilesDao">
 
+    <resultMap type="com.eyslce.wx.mp.domain.MediaFiles" id="mediaMap">
+        <id property="id" column="id"/>
+        <result property="mediaType" column="media_type"/>
+        <result property="title" column="title"/>
+        <result property="introduction" column="introduction"/>
+        <result property="logicClass" column="logic_class"/>
+        <result property="mediaId" column="media_id"/>
+        <result property="uploadUrl" column="upload_url"/>
+        <result property="rmk" column="rmk"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="account" column="account"/>
+        <result property="baseId" column="base_id"/>
+    </resultMap>
+    <!-- 单个查询 -->
+    <select id="getFileByMediaId" parameterType="java.lang.String"
+            resultMap="mediaMap">
+		SELECT * FROM wxcms_media_files WHERE media_id = #{mediaId}
+	</select>
+    <!-- 条件查询单条数据 -->
+    <select id="getFileBySou" parameterType="com.eyslce.wx.mp.domain.MediaFiles"
+            resultMap="mediaMap">
+        SELECT * FROM wxcms_media_files WHERE
+        <where>
+            1=1
+            <if test="mediaId!=null and mediaId!='' ">
+                and media_id = #{mediaId}
+            </if>
+            <if test="baseId!=null and baseId!='' ">
+                and base_id = #{baseId}
+            </if>
+            <if test="id!=null and id!='' ">
+                and id = #{id}
+            </if>
+        </where>
+
+    </select>
+    <!-- 模糊分页 -->
+    <select id="getMediaListByPage" parameterType="com.eyslce.wx.mp.domain.MediaFiles" resultMap="mediaMap">
+        SELECT t.* FROM wxcms_media_files t
+        <where>
+            1=1
+            <if test="mediaType!=null and mediaType!='' ">
+                and t.media_type = #{mediaType}
+            </if>
+            <if test="title!=null and title!='' ">
+                and t.title like concat('%',#{title},'%')
+            </if>
+            <if test="start!=null and start!='' and end!=null and end!=''">
+                and (t.create_time
+                between
+                str_to_date(#{start}, '%Y-%m-%d')
+                and
+                str_to_date(#{end}, '%Y-%m-%d'))
+            </if>
+            <if test="account != null">
+                and t.account = #{account}
+            </if>
+        </where>
+        ORDER BY t.create_time desc
+    </select>
+    <!-- 添加 -->
     <insert id="add" parameterType="com.eyslce.wx.mp.domain.MediaFiles">
-        INSERT INTO wxcms_media_files
-        (media_type,
-        media_id,
-        create_time,
-        update_time)
-        VALUES(#{mediaType},
-        #{mediaId},
-        #{createTime},
-        #{updateTime})
-    </insert>
+		INSERT INTO wxcms_media_files
+		 (media_type,
+		  title,
+		  introduction,
+		  logic_class,
+		  media_id,
+		  upload_url,
+		  rmk,
+		  account,
+		  base_id,
+		  create_time,
+		  update_time)
+		  VALUES(
+		  #{mediaType},
+		  #{title},
+		  #{introduction},
+		  #{logicClass},
+          #{mediaId},
+          #{uploadUrl},
+          #{rmk},
+          #{account},
+          #{baseId},
+          #{createTime},
+          #{updateTime})
+	</insert>
     <!-- 查询主表的媒体信息  -->
-    <select id="getMediaFileList" resultType="com.eyslce.wx.mp.domain.MediaFiles">
-		SELECT media_type as mediaType,
-		       media_id as mediaId
+    <select id="getMediaFileList" resultMap="mediaMap">
+		SELECT *
 		 FROM wxcms_media_files t
 		  ORDER BY t.create_time desc 
 	</select>
