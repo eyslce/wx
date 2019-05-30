@@ -11,7 +11,7 @@ public class BgImgJob {
     private FileOperation fileOperation;
 
 
-    @Scheduled(cron = "0 8 * * * ?")
+    @Scheduled(cron = "0 0 8 * * ?")
     public void cronJob() {
         fileOperation.downBingImg();
     }

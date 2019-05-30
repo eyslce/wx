@@ -25,4 +25,14 @@ public class ImageServiceImpl implements IImageService {
         img.setId(StringUtils.uuid());
         img.setCreateTime(new Date());
     }
+
+    @Override
+    public ImgResource getImg(String id) {
+        return null;
+    }
+
+    @Override
+    public boolean delImg(String id) {
+        return false;
+    }
 }
