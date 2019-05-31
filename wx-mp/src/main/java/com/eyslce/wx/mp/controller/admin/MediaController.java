@@ -6,6 +6,7 @@ import com.eyslce.wx.commons.util.WxConfigurationProperties;
 import com.eyslce.wx.mp.controller.BaseController;
 import com.eyslce.wx.mp.domain.ImgResource;
 import com.eyslce.wx.mp.domain.MediaFiles;
+import com.eyslce.wx.mp.query.ImgQuery;
 import com.eyslce.wx.mp.service.IImageService;
 import com.eyslce.wx.mp.service.IMediaFileService;
 import com.github.pagehelper.PageInfo;
@@ -14,6 +15,7 @@ import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterial;
 import me.chanjar.weixin.mp.bean.material.WxMpMaterialUploadResult;
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("admin/media")
@@ -52,6 +56,11 @@ public class MediaController extends BaseController {
     @GetMapping("image/list")
     public String imageList() {
         return "admin/media/image/list";
+    }
+
+    @RequestMapping("video/add")
+    public String videoAdd() {
+        return "admin/media/video/add";
     }
 
     @RequestMapping("video")
@@ -82,10 +91,12 @@ public class MediaController extends BaseController {
         String ext = FilenameUtils.getExtension(trueName);
         String path = wxConfig.getUpload_dir() + type;
         String name = System.currentTimeMillis() + "." + ext;
+
+
         //生成新名称
         File newFile = new File(path, name);
         if (!newFile.exists()) {
-            newFile.mkdirs();
+            FileUtils.forceMkdirParent(newFile);
         }
         //保存文件
         file.transferTo(newFile);
@@ -133,16 +144,43 @@ public class MediaController extends BaseController {
 
     @PostMapping("image/list")
     @ResponseBody
-    public HttpResult imageListPage() {
-        return success();
+    public HttpResult imageListPage(ImgQuery imgQuery) {
+        PageInfo<ImgResource> pageInfo = imageService.getImgListByPage(imgQuery);
+        return success(pageInfo);
     }
 
     @ResponseBody
     @RequestMapping("image/del")
     public HttpResult delMediaImg(String id) throws Exception {
         ImgResource img = imageService.getImg(id);
+        if (img == null) {
+            return success();
+        }
         wxMpService.getMaterialService().materialDelete(img.getMediaId());
         imageService.delImg(id);
         return success();
+    }
+
+    @ResponseBody
+    @RequestMapping("uploadVideoFile")
+    public HttpResult uploadFile(MultipartFile file) throws Exception {
+        //原文件名称
+        String fileName = file.getOriginalFilename();
+        //文件后缀名
+        String ext = FilenameUtils.getExtension(fileName);
+        String path = wxConfig.getUpload_dir() + WxConsts.MediaFileType.VIDEO + File.pathSeparator;
+        String name = System.currentTimeMillis() + "." + ext;
+
+        File saveFile = new File(path, name);
+        if (!saveFile.exists()) {
+            FileUtils.forceMkdirParent(saveFile);
+        }
+        file.transferTo(saveFile);
+        //构造返回参数
+        Map<String, Object> mapData = new HashMap();
+        mapData.put("src", path + name);//文件url
+        mapData.put("url", path + name);//文件绝对路径url
+        mapData.put("title", fileName);//图片名称，这个会显示在输入框里
+        return success(mapData, Constant.SUCCESS_MSG);
     }
 }

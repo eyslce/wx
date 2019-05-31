@@ -3,6 +3,11 @@ package com.eyslce.wx.commons.util;
 import com.google.common.collect.ImmutableList;
 
 public class Constant {
+    /**
+     * 图片资源状态：0：未引用	1：已被引用
+     */
+    public static final Integer IMG_FLAG0 = 0;
+    public static final Integer IMG_FLAG1 = 1;
     public static final String SUCCESS_MSG = "操作成功";
     public static final String ERROR_MSG = "操作失败，请稍后再试";
 

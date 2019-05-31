@@ -63,8 +63,4 @@ public class ImgResource {
 	private Integer flag;
 
 
-	private String start;
-
-	private String end;
-
 }

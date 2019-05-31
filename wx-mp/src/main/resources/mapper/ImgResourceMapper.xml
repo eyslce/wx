@@ -3,7 +3,7 @@
 
 <mapper namespace="com.eyslce.wx.mp.dao.ImgResourceDao">
 
-    <select id="getImgListByPage" parameterType="com.eyslce.wx.mp.domain.ImgResource"
+    <select id="getImgListByPage" parameterType="com.eyslce.wx.mp.query.ImgQuery"
             resultType="com.eyslce.wx.mp.domain.ImgResource">
         SELECT * FROM wxcms_img_resource t
         <where>
