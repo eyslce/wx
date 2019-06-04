@@ -2,18 +2,20 @@ package com.eyslce.wx.mp.controller.admin;
 
 import com.eyslce.wx.commons.result.HttpResult;
 import com.eyslce.wx.commons.util.Constant;
+import com.eyslce.wx.commons.util.WxConfigurationProperties;
 import com.eyslce.wx.mp.controller.BaseController;
 import com.eyslce.wx.mp.service.ISysConfigService;
 import com.google.common.collect.ImmutableMap;
+import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 import java.util.Properties;
 
@@ -23,6 +25,8 @@ public class AdminController extends BaseController {
 
     @Autowired
     private ISysConfigService sysConfigService;
+    @Autowired
+    WxConfigurationProperties wxConfigurationProperties;
 
     @GetMapping(value = {"","/", "/index"})
     public ModelAndView index() {
@@ -100,5 +104,21 @@ public class AdminController extends BaseController {
                 .put("systemUpdateTime", Constant.SYSTEM_UPDATE_TIME)
                 .build();
         return this.success(propsMap, "操作成功");
+    }
+
+    @GetMapping("/file/{type}/{fileName}.{ext}")
+    public void image(@PathVariable("type") String type, @PathVariable("fileName") String fileName, @PathVariable("ext") String ext, HttpServletResponse response) {
+        try {
+            String filePath = wxConfigurationProperties.getUpload_dir() + type + "/" + fileName + "." + ext;
+            File file = FileUtils.getFile(filePath);
+            if (!file.isFile()) {
+                response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                return;
+            }
+            byte[] content = FileUtils.readFileToByteArray(file);
+            response.getOutputStream().write(content);
+        } catch (IOException e) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        }
     }
 }

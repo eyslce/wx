@@ -27,12 +27,11 @@
 
 
                         <div class="layui-inline right">
-                            <button class="layui-btn btn-primary" onclick="jump('/material/document/addsingle')">添加单图文消息
+                            <button class="layui-btn btn-primary" onclick="jump('/admin/msgnews/addsingle')">添加单图文消息
                             </button>
-                            <button class="layui-btn btn-primary" onclick="jump('/material/document/addmultiple')">
+                            <button class="layui-btn btn-primary" onclick="jump('/admin/msgnews/addmultiple')">
                                 添加多图文消息
                             </button>
-                            <!--<button class="layui-btn btn-danger" id="msg_del">批量删除</button>-->
                         </div>
                     </div>
                     <div id="list1">
@@ -60,12 +59,11 @@
 
 
                         <div class="layui-inline right">
-                            <button class="layui-btn btn-primary" onclick="jump('/material/document/addsingle')">添加单图文消息
+                            <button class="layui-btn btn-primary" onclick="jump('/admin/msgnews/addsingle')">添加单图文消息
                             </button>
-                            <button class="layui-btn btn-primary" onclick="jump('/material/document/addmultiple')">
+                            <button class="layui-btn btn-primary" onclick="jump('/admin/msgnews/addmultiple')">
                                 添加多图文消息
                             </button>
-                            <!--<button class="layui-btn btn-danger" id="msg_del">批量删除</button>-->
                         </div>
                     </div>
                     <div id="list2">
@@ -166,7 +164,6 @@
 
         //多图文
         function getlist1(params) {
-//            debugger
             if (params && params.page) {
                 params1.page = params.page;
             } else {
@@ -175,20 +172,19 @@
                     params1.start = params.start;
                     params1.end = params.end;
                 }
-//                 params && (params1 = params);
                 params1.page = 1;
                 params1.pageSize = 12;
             }
             params1.multType = 2;
             $.ajax({
-                url: '/msgnews/list',
+                url: '/admin/msgnews/list',
                 data: params1,
                 success: function (result) {
                     if (result.success && result.page && result.page.total > 0) {
                         //渲染列表
                         renderHtml({
                             targetId: 'list1',
-                            template: "list-multiple",
+                            template: "/admin/msgnews/listmultiple",
                             htmlData: result,
                             callBack: function () {
                                 if (result.page.total > 12) {
@@ -212,11 +208,11 @@
             var event = $(this).attr("event");
             var id = $(this).parent().attr("data-id");
             if (event == "edit") {
-                jump("/material/document/editmultiple[id=" + id + "]");
+                jump("/admin/msgnews/editmultiple[id=" + id + "]");
             } else if (event == "mass") {// 群发
                 showDialog({
                     title: '群发'
-                    , template: '/views/common/template/fans-chose.html'
+                    , template: '/admin/fans/chose'
                     , height: 600
                     , yes: function (index) {
                         if (GLOBAL.choosed.length == 0) {
@@ -228,7 +224,7 @@
                             return false;
                         }
                         $.ajax({
-                            url: '/wxapi/sendNewsByOpenId',
+                            url: '/admin/send/sendNewsByOpenId',
                             data: {
                                 id: id,
                                 openid: GLOBAL.choosed[0]
@@ -250,7 +246,7 @@
             } else if (event == "del") {// 删除
                 showConfirm("确认删除？",function () {
                     $.ajax({
-                        url: '/msgnews/deleteMaterial',
+                        url: '/admin/msgnews/deleteMaterial',
                         data: {id: id},
                         success: function (result) {
                             if (result.success) {
@@ -271,7 +267,6 @@
             if (params && params.page) {
                 params2.page = params.page;
             } else {
-//                 params && (params2 = params);
                 if (params) {
                     params2.title = params.title;
                     params2.start = params.start;
@@ -282,14 +277,14 @@
             }
             params2.multType = 1;
             $.ajax({
-                url: '/msgnews/list',
+                url: '/admin/msgnews/list',
                 data: params2,
                 success: function (result) {
                     if (result.success && result.page && result.page.total > 0) {
                         //渲染列表
                         renderHtml({
                             targetId: 'list2',
-                            template: "list",
+                            template: "/admin/msgnews/listsingle",
                             htmlData: result,
                             callBack: function () {
                                 if (result.page.total > 12) {
@@ -313,12 +308,12 @@
             var event = $(this).attr("event");
             var id = $(this).parent().attr("data-id");
             if (event == "edit") {
-                jump("/material/document/editsingle[id=" + id + "]");
+                jump("/admin/msgnews/editsingle[id=" + id + "]");
             } else if (event == "mass") {
                 //群发
                 showDialog({
                     title: '群发',
-                    template: '/views/common/template/fans-chose.html',
+                    template: '/admin/fans/chose',
                     yes: function (index) {
                         var data = GLOBAL.choosed;
                         if (data.length > 1) {
@@ -326,7 +321,7 @@
                             return false;
                         }
                         $.ajax({
-                            url: '/wxapi/sendNewsByOpenId',
+                            url: '/admin/send/sendNewsByOpenId',
                             data: {
                                 id: id,
                                 openid: GLOBAL.choosed[0]
@@ -348,7 +343,7 @@
             } else if (event == "del") {
                 showConfirm("确认删除？", function () {
                     $.ajax({
-                        url: '/msgnews/deleteMaterial',
+                        url: '/admin/msgnews/deleteMaterial',
                         data: {id: id},
                         success: function (result) {
                             if (result.success) {

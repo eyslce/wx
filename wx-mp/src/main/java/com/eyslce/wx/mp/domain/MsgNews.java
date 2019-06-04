@@ -23,6 +23,8 @@ public class MsgNews extends MsgBase{
 	private String mediaId; //媒体id
 	private String thumbMediaId;//封面图片id
 	private Integer newsIndex;//多图文中的第几条
+	private Integer opencomment;//是否打开评论，0不打开，1打开
+	private Integer fanscancomment;//是否粉丝才可评论，0所有人可评论，1粉丝才可评论
 	
 	private String start;
 	private String end;

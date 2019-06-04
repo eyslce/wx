@@ -1,13 +1,17 @@
 package com.eyslce.wx.mp.controller.admin;
 
 import com.eyslce.wx.commons.result.HttpResult;
+import com.eyslce.wx.commons.util.Constant;
 import com.eyslce.wx.mp.controller.BaseController;
+import com.eyslce.wx.mp.domain.MsgNews;
 import com.eyslce.wx.mp.domain.MsgText;
+import com.eyslce.wx.mp.service.IMsgNewsService;
 import com.eyslce.wx.mp.service.IMsgTextService;
 import me.chanjar.weixin.common.api.WxConsts;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.WxMpMassOpenIdsMessage;
+import me.chanjar.weixin.mp.bean.kefu.WxMpKefuMessage;
 import me.chanjar.weixin.mp.bean.result.WxMpMassSendResult;
 import me.chanjar.weixin.mp.bean.template.WxMpTemplateMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +31,8 @@ public class SendController extends BaseController {
     private IMsgTextService msgTextService;
     @Autowired
     private WxMpService wxMpService;
+    @Autowired
+    private IMsgNewsService msgNewsService;
 
     /**
      * 发送文本消息
@@ -59,5 +65,18 @@ public class SendController extends BaseController {
         //todo
         //wxMpService.getTemplateMsgService().sendTemplateMsg(templateMessage);
         return success();
+    }
+
+    @PostMapping("sendNewsByOpenId")
+    public HttpResult sendNewsByOpenId(String id, String openid) throws WxErrorException {
+        MsgNews msgNews = this.msgNewsService.getById(id);
+        WxMpKefuMessage message = new WxMpKefuMessage();
+        //todo
+        message.setToUser(openid);
+        boolean result = wxMpService.getKefuService().sendKefuMessage(message);
+        if (result) {
+            return success();
+        }
+        return error(Constant.ERROR_MSG);
     }
 }

@@ -50,7 +50,6 @@
     <select id="getWebNewsListByPage" parameterType="com.eyslce.wx.mp.domain.MsgNews" resultMap="msgNewsMap">
         SELECT t.* FROM wxcms_msg_news t
         <where>
-
             <if test="multType!=null and multType!='' ">
                 mult_type = #{multType}
             </if>

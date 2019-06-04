@@ -168,7 +168,7 @@ public class MediaController extends BaseController {
         String fileName = file.getOriginalFilename();
         //文件后缀名
         String ext = FilenameUtils.getExtension(fileName);
-        String path = wxConfig.getUpload_dir() + WxConsts.MediaFileType.VIDEO + File.pathSeparator;
+        String path = wxConfig.getUpload_dir() + WxConsts.MediaFileType.VIDEO + "/";
         String name = System.currentTimeMillis() + "." + ext;
 
         File saveFile = new File(path, name);
@@ -178,9 +178,28 @@ public class MediaController extends BaseController {
         file.transferTo(saveFile);
         //构造返回参数
         Map<String, Object> mapData = new HashMap();
-        mapData.put("src", path + name);//文件url
+        mapData.put("src", "/admin/file/" + WxConsts.MediaFileType.VIDEO + "/" + name);//文件url
         mapData.put("url", path + name);//文件绝对路径url
         mapData.put("title", fileName);//图片名称，这个会显示在输入框里
         return success(mapData, Constant.SUCCESS_MSG);
+    }
+
+    @RequestMapping(value = "/addVideo")
+    @ResponseBody
+    public HttpResult addVideo(MediaFiles mediaFile) throws WxErrorException {
+        WxMpMaterial material = new WxMpMaterial();
+        material.setFile(new File(mediaFile.getUrl()));
+        material.setName(mediaFile.getTitle());
+        material.setVideoTitle(mediaFile.getTitle());
+        material.setVideoIntroduction(mediaFile.getIntroduction());
+
+        WxMpMaterialUploadResult result = wxMpService.getMaterialService().materialFileUpload(WxConsts.MediaFileType.VIDEO, material);
+
+        mediaFile.setMediaId(result.getMediaId());
+        mediaFile.setMediaType(WxConsts.MediaFileType.VIDEO);
+        mediaFile.setCreateTime(new Date(System.currentTimeMillis()));
+        mediaFile.setUpdateTime(new Date(System.currentTimeMillis()));
+        mediaFileService.add(mediaFile);
+        return success();
     }
 }
