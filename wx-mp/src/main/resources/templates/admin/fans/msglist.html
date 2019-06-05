@@ -76,7 +76,7 @@
             table.render({
                 id: 'send_msg',
                 elem: '#send_msg',
-                url: '/msgnews/list',
+                url: '/admin/msgnews/list',
                 align: "center",
                 cols: [table_header]
             });
@@ -95,10 +95,10 @@
                         textId: data.id
                     };
                 } else {
-                    url = '/wxapi/sendNewsByOpenId';
+                    url = '/admin/send/news';
                     sendData = {
-	                   	openid: $("#openId").val(),
-	                    id: data.id
+                        openIds: $("#openId").val(),
+                        newsId: data.id
 	                };
                 }
                 $.ajax({

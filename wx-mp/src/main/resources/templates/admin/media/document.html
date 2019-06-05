@@ -216,18 +216,14 @@
                     , height: 600
                     , yes: function (index) {
                         if (GLOBAL.choosed.length == 0) {
-                            layer.msg("请选择1个粉丝");
-                            return false;
-                        }
-                        if (GLOBAL.choosed.length > 1) {
-                            layer.msg("只能选择1个粉丝");
+                            layer.msg("请选择粉丝");
                             return false;
                         }
                         $.ajax({
-                            url: '/admin/send/sendNewsByOpenId',
+                            url: '/admin/send/news',
                             data: {
-                                id: id,
-                                openid: GLOBAL.choosed[0]
+                                newsId: id,
+                                openIds: GLOBAL.choosed.join(",")
                             },
                             success: function (result) {
                                 if (result.success) {
@@ -315,16 +311,15 @@
                     title: '群发',
                     template: '/admin/fans/chose',
                     yes: function (index) {
-                        var data = GLOBAL.choosed;
-                        if (data.length > 1) {
-                            layer.msg("只能选择1个粉丝");
+                        if (GLOBAL.choosed.length == 0) {
+                            layer.msg("请选择粉丝");
                             return false;
                         }
                         $.ajax({
-                            url: '/admin/send/sendNewsByOpenId',
+                            url: '/admin/send/news',
                             data: {
-                                id: id,
-                                openid: GLOBAL.choosed[0]
+                                newsId: id,
+                                openIds: GLOBAL.choosed.join(",")
                             },
                             success: function (result) {
                                 if (result.success) {

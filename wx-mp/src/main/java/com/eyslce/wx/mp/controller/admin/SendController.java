@@ -67,9 +67,9 @@ public class SendController extends BaseController {
         return success();
     }
 
-    @PostMapping("sendNewsByOpenId")
-    public HttpResult sendNewsByOpenId(String id, String openid) throws WxErrorException {
-        MsgNews msgNews = this.msgNewsService.getById(id);
+    //未使用
+    @PostMapping("kefu")
+    public HttpResult kefu(String id, String openid) throws WxErrorException {
         WxMpKefuMessage message = new WxMpKefuMessage();
         //todo
         message.setToUser(openid);
@@ -78,5 +78,20 @@ public class SendController extends BaseController {
             return success();
         }
         return error(Constant.ERROR_MSG);
+    }
+
+    @PostMapping("news")
+    public HttpResult news(String newsId, String openIds) throws WxErrorException {
+        MsgNews msgNews = this.msgNewsService.getById(newsId);
+        String[] openIdArray = openIds.split(",");
+        WxMpMassOpenIdsMessage openIdsMessage = new WxMpMassOpenIdsMessage();
+        openIdsMessage.setMsgType(WxConsts.MassMsgType.MPNEWS);
+        openIdsMessage.setMediaId(msgNews.getMediaId());
+        openIdsMessage.setToUsers(Arrays.asList(openIdArray));
+        WxMpMassSendResult result = wxMpService.getMassMessageService().massOpenIdsMessageSend(openIdsMessage);
+        if (result.getErrorCode() != null && result.getErrorCode().equals("0")) {
+            return success();
+        }
+        return error(result.getErrorMsg());
     }
 }
