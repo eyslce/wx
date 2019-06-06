@@ -17,4 +17,19 @@ public class MenuService implements IMenuService {
     public List<AccountMenu> getMenuList(AccountMenu menu) {
         return menuDao.listWxMenus(menu);
     }
+
+    @Override
+    public List<AccountMenu> listWxMenus(AccountMenu entity) {
+        return menuDao.listWxMenus(entity);
+    }
+
+    @Override
+    public void add(AccountMenu entity) {
+        menuDao.add(entity);
+    }
+
+    @Override
+    public void delete(AccountMenu entity) {
+        menuDao.delete(entity);
+    }
 }

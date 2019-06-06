@@ -292,7 +292,7 @@
             };
             //更新菜单数据
             var menuUpdate = function () {
-                //TODO:操作中保存菜单数据（暂时废弃）
+                //TODO:操作中保存菜单数据
                 $.ajax({
                     url: "",
                     data: {menu: JSON.stringify(getMenuList())},
@@ -499,18 +499,10 @@
                     btn: 0,
                     success: function (layero, index) {
                         renderSelectTable();
-                    },
+                    }
                 });
                 return false;
             });
-
-            //添加资源点
-//        $(document).on('click', "#add-resources", function () {
-//            Backend.api.open($(this).attr("href") + "?key=" + key, __('Add'), {
-//                callback: refreshkey
-//            });
-//            return false;
-//        });
 
             //选择资源表格内部操作按钮监听
             layui.table.on('tool(select_table)', function (obj) {

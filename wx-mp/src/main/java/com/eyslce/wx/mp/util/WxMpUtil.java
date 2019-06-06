@@ -7,6 +7,7 @@ import com.eyslce.wx.commons.util.DateTimeUtils;
 import com.eyslce.wx.mp.dao.MsgNewsDao;
 import com.eyslce.wx.mp.dao.MsgTextDao;
 import com.eyslce.wx.mp.domain.*;
+import com.eyslce.wx.mp.entity.MatchRule;
 import com.eyslce.wx.mp.service.IAccountService;
 import me.chanjar.weixin.common.exception.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpConfigStorage;
@@ -85,15 +86,15 @@ public class WxMpUtil {
         return fans;
     }
 
-    public JSONObject prepareMenus(List<AccountMenu> menus) {
+    public JSONObject prepareMenus(List<AccountMenu> menus, MatchRule matchrule) {
         JSONObject root = new JSONObject();
         if (!CollectionUtils.isEmpty(menus)) {
             List<AccountMenu> parentAM = new ArrayList<AccountMenu>();
             Map<Long, List<JSONObject>> subAm = new HashMap<Long, List<JSONObject>>();
             for (AccountMenu m : menus) {
-                if (m.getParentId().intValue() == 0) {// 一级菜单
+                if (m.getParentId().intValue() == 0) {//一级菜单
                     parentAM.add(m);
-                } else {// 二级菜单
+                } else {//二级菜单
                     if (subAm.get(m.getParentId()) == null) {
                         subAm.put(m.getParentId(), new ArrayList<JSONObject>());
                     }
@@ -104,20 +105,27 @@ public class WxMpUtil {
             }
             JSONArray arr = new JSONArray();
             for (AccountMenu m : parentAM) {
-                if (subAm.get(m.getId()) != null) {// 有子菜单
+                if (subAm.get(m.getId()) != null) {//有子菜单
                     arr.add(getParentMenuJSONObj(m, subAm.get(m.getId())));
-                } else {// 没有子菜单
+                } else {//没有子菜单
                     arr.add(getMenuJSONObj(m));
                 }
             }
             root.put("button", arr);
-
+            root.put("matchrule", JSONObject.toJSON(matchrule).toString());
         }
-        // 添加消息id
+        //添加消息id
         root.put("msgs", getMsg());
         return root;
     }
 
+    /**
+     * 此方法是构建菜单对象的；构建菜单时，对于  key 的值可以任意定义；
+     * 当用户点击菜单时，会把key传递回来；对已处理就可以了
+     *
+     * @param menu
+     * @return
+     */
     public JSONObject getMenuJSONObj(AccountMenu menu) {
         JSONObject obj = new JSONObject();
         obj.put("name", menu.getName());
