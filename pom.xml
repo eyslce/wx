@@ -57,4 +57,22 @@
         </dependencies>
     </dependencyManagement>
 
+    <profiles>
+    <profile>
+        <id>dev</id>
+        <properties>
+            <environment>dev</environment>
+        </properties>
+        <activation>
+            <activeByDefault>true</activeByDefault>
+        </activation>
+    </profile>
+    <profile>
+        <id>prod</id>
+        <properties>
+            <environment>prod</environment>
+        </properties>
+    </profile>
+</profiles>
+
 </project>
