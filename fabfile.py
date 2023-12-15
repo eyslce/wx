@@ -2,9 +2,9 @@
 from fabric.api import local, env, run, put, cd
 from fabric.contrib import files
 
-env.hosts = "39.98.209.7"
+env.hosts = ""
 env.user = "root"
-env.key_filename = "C:\Users\eyslc\.ssh\cjj.pem"
+env.key_filename = ""
 
 app_name = 'wx-mp'
 app_version = '1.0-SNAPSHOT'
